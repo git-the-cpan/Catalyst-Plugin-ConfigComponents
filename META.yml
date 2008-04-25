@@ -1,0 +1,22 @@
+---
+name: Catalyst-Plugin-ConfigComponents
+version: 0.1.14
+author:
+  - 'Peter Flanigan,  C<< <Support at RoxSoft.co.uk> >>'
+abstract: Creates components from config entries
+license: perl
+resources:
+  license: http://dev.perl.org/licenses/
+requires:
+  Catalyst: 5.7012
+  Devel::InnerPackage: 0.3
+  Module::Pluggable::Object: 3.6
+  perl: 5.8
+provides:
+  Catalyst::Plugin::ConfigComponents:
+    file: lib/Catalyst/Plugin/ConfigComponents.pm
+    version: 0.1.14
+generated_by: Module::Build version 0.2808
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2

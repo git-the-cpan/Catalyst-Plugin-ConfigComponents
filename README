@@ -1,0 +1,85 @@
+Name
+    Catalyst::Plugin::ConfigComponents - Creates components from config
+    entries
+
+Version
+    0.1.$Revision: 14 $
+
+Synopsis
+       # In your Catalyst application
+       package MyApp;
+
+       use Catalyst qw(... ConfigComponents ...);
+
+       __PACKAGE__->setup;
+
+       # In your applications config file
+       <component name="Model::Help">
+          <base_class>MyExternal::Model::Help</base_class>
+          <base_class>Catalyst::Model</base_class>
+       </component>
+
+       # Do not create MyApp::Model::Help this module will do for you
+
+       # In a controller this will call the get_help method in
+       # the class MyExternal::Model::Help
+       my $help = $c->model( q(Help) )->get_help( ... );
+
+Description
+    When the application starts this module creates Catalyst component class
+    definitions using config information. The defined class inherits from
+    the list of base classes referenced in the config file
+
+    This code was originally posted to the Catalyst mailing list by Dagfinn
+    Ilmari Mannsåker as a patch in response to an idea by Castaway. I
+    thought it would be better as a plugin and have extended it to handle MI
+
+Subroutines/Methods
+  setup_components
+    This overloads the core method. For each config key matching { \A
+    ([MVC]|Model|View|Controller) :: } it checks if the corresponding
+    component already exists, and if it doesn't this method creates it on
+    the fly. The base class is set to
+    "MyApp->config->{$component}->{base_class}" if it exists,
+    "Catalyst::$component" (with [MVC] expanded to the full component type)
+    otherwise. The base_class can be an array ref in which case the defined
+    class will inherit from all classes in the list (multiple inheritance).
+
+  _expand_component_type
+    Expands the MVC abbreviations to Model, View and Controller respectively
+
+  _load_component_and_children
+    Calls "setup_component" for the given component and all it's inner
+    packages
+
+Diagnostics
+    None
+
+Configuration and Environment
+    None
+
+Dependencies
+    Catalyst::Utils
+    Devel::InnerPackage
+    Module::Pluggable::Object
+
+Incompatibilities
+    There are no known incompatibilities in this module
+
+Bugs and Limitations
+    There are no known bugs in this module. Please report problems to the
+    address below. Patches are welcome
+
+Author
+    Peter Flanigan, "<Support at RoxSoft.co.uk>"
+
+License and Copyright
+    Copyright (c) 2008 Peter Flanigan. All rights reserved
+
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself. See perlartistic
+
+    This program is distributed in the hope that it will be useful, but
+    WITHOUT WARRANTY; without even the implied warranty of MERCHANTABILITY
+    or FITNESS FOR A PARTICULAR PURPOSE
+

@@ -1,0 +1,13 @@
+lib/Catalyst/Plugin/ConfigComponents.pm
+Makefile.PL
+MANIFEST			This list of files
+META.yml
+README
+t/component_dynamic.t
+t/lib/Catalyst/Component/Implicit.pm
+t/lib/Catalyst/Controller/Implicit.pm
+t/lib/Catalyst/Model/Implicit.pm
+t/lib/Catalyst/View/Implicit.pm
+t/lib/CatalystX/Controller.pm
+t/lib/CatalystX/Model.pm
+t/lib/CatalystX/View.pm
