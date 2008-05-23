@@ -8,7 +8,8 @@ WriteMakefile
           'PREREQ_PM' => {
                            'Catalyst' => '5.7012',
                            'Devel::InnerPackage' => '0.3',
-                           'Module::Pluggable::Object' => '3.6'
+                           'Module::Pluggable::Object' => '3.6',
+                           'version' => '0.74'
                          },
           'INSTALLDIRS' => 'site',
           'EXE_FILES' => [],

@@ -1,0 +1,13 @@
+2008-05-23  Peter Flanigan  <pjf@localhost>
+
+	* lib/Catalyst/Plugin/ConfigComponents.pm:
+
+	Added POD and POD coverage tests
+
+2008-05-19  Peter Flanigan  <pjf@localhost>
+
+	* lib/Catalyst/Plugin/ConfigComponents.pm (setup_components):
+
+	Ignore components matching the emacs temporary file pattern ::.#
+
+

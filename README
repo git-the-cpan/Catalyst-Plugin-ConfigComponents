@@ -3,7 +3,7 @@ Name
     entries
 
 Version
-    0.1.$Revision: 14 $
+    0.1.$Revision: 21 $
 
 Synopsis
        # In your Catalyst application
@@ -34,6 +34,9 @@ Description
     Ilmari Mannsåker as a patch in response to an idea by Castaway. I
     thought it would be better as a plugin and have extended it to handle MI
 
+Configuration and Environment
+    None
+
 Subroutines/Methods
   setup_components
     This overloads the core method. For each config key matching { \A
@@ -53,9 +56,6 @@ Subroutines/Methods
     packages
 
 Diagnostics
-    None
-
-Configuration and Environment
     None
 
 Dependencies

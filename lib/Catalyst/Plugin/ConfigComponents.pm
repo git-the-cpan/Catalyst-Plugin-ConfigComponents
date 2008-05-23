@@ -1,6 +1,6 @@
 package Catalyst::Plugin::ConfigComponents;
 
-# @(#)$Id: ConfigComponents.pm 14 2008-04-25 20:15:54Z pjf $
+# @(#)$Id: ConfigComponents.pm 21 2008-05-23 20:30:49Z pjf $
 
 use strict;
 use warnings;
@@ -8,7 +8,7 @@ use Catalyst::Utils;
 use Devel::InnerPackage ();
 use Module::Pluggable::Object ();
 
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 14 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 21 $ =~ /\d+/gmx );
 
 sub setup_components {
    my $class  = shift;
@@ -21,7 +21,8 @@ sub setup_components {
    my $finder = Module::Pluggable::Object->new
       ( search_path => [ map { m{ \A :: }mx ? $class.$_ : $_ } @paths ],
         %{ $config } );
-   my @comps  = sort { length $a <=> length $b } $finder->plugins;
+   my @comps  = grep { !m{ :: \. \# }mx }
+                sort { length $a <=> length $b } $finder->plugins;
    my %comps  = map { $_ => 1 } @comps;
 
    for my $component (@comps) {
@@ -95,7 +96,7 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
 
 =head1 Version
 
-0.1.$Revision: 14 $
+0.1.$Revision: 21 $
 
 =head1 Synopsis
 
@@ -129,6 +130,10 @@ Dagfinn Ilmari Mannsåker as a patch in response to an idea by
 Castaway. I thought it would be better as a plugin and have extended
 it to handle MI
 
+=head1 Configuration and Environment
+
+None
+
 =head1 Subroutines/Methods
 
 =head2 setup_components
@@ -157,13 +162,9 @@ packages
 
 None
 
-=head1 Configuration and Environment
-
-None
-
 =head1 Dependencies
 
-=over 4
+=over 3
 
 =item L<Catalyst::Utils>
 
