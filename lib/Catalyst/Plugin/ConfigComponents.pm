@@ -1,6 +1,6 @@
 package Catalyst::Plugin::ConfigComponents;
 
-# @(#)$Id: ConfigComponents.pm 21 2008-05-23 20:30:49Z pjf $
+# @(#)$Id: ConfigComponents.pm 25 2008-06-02 17:49:59Z pjf $
 
 use strict;
 use warnings;
@@ -8,7 +8,7 @@ use Catalyst::Utils;
 use Devel::InnerPackage ();
 use Module::Pluggable::Object ();
 
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 21 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 25 $ =~ /\d+/gmx );
 
 sub setup_components {
    my $class  = shift;
@@ -96,7 +96,7 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
 
 =head1 Version
 
-0.1.$Revision: 21 $
+0.1.$Revision: 25 $
 
 =head1 Synopsis
 
@@ -109,11 +109,11 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
 
    # In your applications config file
    <component name="Model::Help">
-      <base_class>MyExternal::Model::Help</base_class>
-      <base_class>Catalyst::Model</base_class>
+      <base_class>MyExternal::Model::HelpE<lt>/base_class>
+      <base_class>Catalyst::ModelE<lt>/base_class>
    </component>
 
-   # Do not create MyApp::Model::Help this module will do for you
+   # Do not create MyApp::Model::Help this module will do it for you
 
    # In a controller this will call the get_help method in
    # the class MyExternal::Model::Help

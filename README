@@ -3,7 +3,7 @@ Name
     entries
 
 Version
-    0.1.$Revision: 21 $
+    0.1.$Revision: 25 $
 
 Synopsis
        # In your Catalyst application
@@ -15,11 +15,11 @@ Synopsis
 
        # In your applications config file
        <component name="Model::Help">
-          <base_class>MyExternal::Model::Help</base_class>
-          <base_class>Catalyst::Model</base_class>
+          <base_class>MyExternal::Model::HelpE<lt>/base_class>
+          <base_class>Catalyst::ModelE<lt>/base_class>
        </component>
 
-       # Do not create MyApp::Model::Help this module will do for you
+       # Do not create MyApp::Model::Help this module will do it for you
 
        # In a controller this will call the get_help method in
        # the class MyExternal::Model::Help
