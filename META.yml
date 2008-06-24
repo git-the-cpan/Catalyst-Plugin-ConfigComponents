@@ -1,6 +1,6 @@
 ---
 name: Catalyst-Plugin-ConfigComponents
-version: 0.1.32
+version: 0.1.33
 author:
   - 'Peter Flanigan,  C<< <Support at RoxSoft.co.uk> >>'
 abstract: Creates components from config entries
@@ -19,7 +19,7 @@ build_requires:
 provides:
   Catalyst::Plugin::ConfigComponents:
     file: lib/Catalyst/Plugin/ConfigComponents.pm
-    version: 0.1.32
+    version: 0.1.33
 generated_by: Module::Build version 0.2808
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
