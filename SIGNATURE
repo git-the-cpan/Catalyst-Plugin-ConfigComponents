@@ -1,0 +1,42 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.55.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It will check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 5f2596140f946f3eabad2a634136240a661d159d Changes
+SHA1 0190f62d6871f7927dcc90e40797c0f20645ddea LICENSE
+SHA1 e0251680e6e0cca8783113b3d0e22352e65a9c30 MANIFEST
+SHA1 c39045d089c1bab91a15b44944a71eaeedfe0a19 META.yml
+SHA1 ad4635e92d8d5e910ed786357024e5f4f91478d4 Makefile.PL
+SHA1 3116fa693ec9813205ed371bfaf08294db536c1a README
+SHA1 9d7af76389ecd615dacfcb9a844166fc2909aae7 lib/Catalyst/Plugin/ConfigComponents.pm
+SHA1 e7caec46b42f189136debadb4dce9f5d264815fc t/02pod.t
+SHA1 a0c28b4344c24b583bb898a3bd92c281641a7672 t/03podcoverage.t
+SHA1 658926921a3938cfde4cd82aa1bd1e517250d707 t/10component_dynamic.t
+SHA1 48411f6672db2cea8ed55c15aaef8310742315f6 t/lib/Catalyst/Component/Implicit.pm
+SHA1 b42917687a63cadecc2de8493d9625e6cec960c8 t/lib/Catalyst/Controller/Implicit.pm
+SHA1 a629c4583bfdb1c1a320010e71088c9ecd87ee1f t/lib/Catalyst/Model/Implicit.pm
+SHA1 da0311ff58b39712542e6da33f1f7f47b34dde78 t/lib/Catalyst/View/Implicit.pm
+SHA1 85c40adc6c35943922c7e85778ce39b7f6108b8a t/lib/CatalystX/Controller.pm
+SHA1 08d9de2f7fd105622718be83ab128d992eb6fabb t/lib/CatalystX/Model.pm
+SHA1 e95f7c7bfcab738b6062e238b68c20f166498402 t/lib/CatalystX/View.pm
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.6 (GNU/Linux)
+
+iQCVAwUBSP2p3c4+W2711T3pAQJPYwP/QCu64QersuX93dKJPi8oPxBqAY+dSNuS
+U3a7h+EZmwpGMy6h1ZH9gV4rC4yjolinqqme2NAoWgQhm+vTZkhG51ESuWqQzVnk
+P5OOaQL9xbGh9h4Te7Kc9TDdkkgnfl3XMl2VhXmfm2yAyZhKuM/LNJMUBB9aNVMe
+4HU7gzVOzNw=
+=a15w
+-----END PGP SIGNATURE-----

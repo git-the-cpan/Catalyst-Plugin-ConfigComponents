@@ -1,19 +1,18 @@
-2008-06-02
+Revision history for Catalyst::Plugin::ConfigComponents
 
-	* Build.PL:
+0.1.44   21/10/2008
+         - Turned CPAN testing off
 
-	Made version a build requirement
+0.1.40   07/10/2008
+         - Added exclude_pattern as a config option
 
-2008-05-23
+         02/06/2008
+         - Made version a build requirement
 
-	* lib/Catalyst/Plugin/ConfigComponents.pm:
+         23/05/2008
+         - Added POD and POD coverage tests
 
-	Added POD and POD coverage tests
-
-2008-05-19
-
-	* lib/Catalyst/Plugin/ConfigComponents.pm (setup_components):
-
-	Ignore components matching the emacs temporary file pattern ::.#
+         19/05/2008
+         - Ignore components matching the emacs temporary file pattern ::.#
 
 

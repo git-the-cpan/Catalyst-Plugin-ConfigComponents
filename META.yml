@@ -1,27 +1,28 @@
 ---
 name: Catalyst-Plugin-ConfigComponents
-version: 0.1.34
+version: 0.1.44
 author:
   - 'Peter Flanigan,  C<< <Support at RoxSoft.co.uk> >>'
 abstract: Creates components from config entries
 license: perl
 resources:
   license: http://dev.perl.org/licenses/
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
+  version: 0.74
 requires:
   Catalyst: 5.7012
   Devel::InnerPackage: 0.3
   Module::Pluggable::Object: 3.6
-  perl: 5.8
+  perl: 5.008
   version: 0.74
 build_requires:
   Test::More: 0.74
-configure_requires:
-  version: 0.74
 provides:
   Catalyst::Plugin::ConfigComponents:
     file: lib/Catalyst/Plugin/ConfigComponents.pm
-    version: 0.1.34
-generated_by: Module::Build version 0.2808
+    version: 0.1.44
+generated_by: Module::Build version 0.3
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4

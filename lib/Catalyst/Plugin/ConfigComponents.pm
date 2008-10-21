@@ -1,6 +1,6 @@
 package Catalyst::Plugin::ConfigComponents;
 
-# @(#)$Id: ConfigComponents.pm 34 2008-06-25 12:53:45Z pjf $
+# @(#)$Id: ConfigComponents.pm 44 2008-10-21 10:07:10Z pjf $
 
 use strict;
 use warnings;
@@ -8,22 +8,23 @@ use Catalyst::Utils;
 use Devel::InnerPackage ();
 use Module::Pluggable::Object ();
 
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 34 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 44 $ =~ /\d+/gmx );
 
 sub setup_components {
-   my $class  = shift;
-   my $config = $class->config->{ setup_components };
-   my @paths  = qw(::Controller ::C ::Model ::M ::View ::V);
+   my $class   = shift;
+   my $config  = $class->config->{ setup_components };
+   my @paths   = qw(::Controller ::C ::Model ::M ::View ::V);
 
    push @paths, @{ delete $config->{ search_extra } || [] };
 
-   my $prefix = join q(|), map { m{ :: (.*) \z }mx } @paths;
-   my $finder = Module::Pluggable::Object->new
+   my $exclude = delete $config->{ exclude_pattern } || q(\A \z);
+   my $prefix  = join q(|), map { m{ :: (.*) \z }mx } @paths;
+   my $finder  = Module::Pluggable::Object->new
       ( search_path => [ map { m{ \A :: }mx ? $class.$_ : $_ } @paths ],
         %{ $config } );
-   my @comps  = grep { !m{ :: \. \# }mx }
-                sort { length $a <=> length $b } $finder->plugins;
-   my %comps  = map { $_ => 1 } @comps;
+   my @comps   = grep { !m{ $exclude }mx }
+                 sort { length $a <=> length $b } $finder->plugins;
+   my %comps   = map { $_ => 1 } @comps;
 
    for my $component (@comps) {
       Catalyst::Utils::ensure_class_loaded( $component,
@@ -62,7 +63,7 @@ sub setup_components {
 # Private methods
 
 sub _expand_component_type {
-   my ($me, $class) = @_; my %expand = qw(M Model V View C Controller);
+   my ($self, $class) = @_; my %expand = qw(M Model V View C Controller);
 
    $class =~ s/ (?<=::) ([MVC]) (?=::) /$expand{$1}/mx;
 
@@ -96,7 +97,7 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
 
 =head1 Version
 
-0.1.$Revision: 34 $
+0.1.$Revision: 44 $
 
 =head1 Synopsis
 
@@ -132,19 +133,25 @@ it to handle MI
 
 =head1 Configuration and Environment
 
-None
+Specify a I<setup_components> config option to pass additional options
+directly to L<Module::Pluggable>. To add additional search paths, specify
+a key named I<search_extra> as an array reference. Items in the array
+beginning with B<::> will have the application class name prepended to
+them. Add a key named I<exclude_pattern> as a regular expression to match
+component names to exclude, e.g. B<:: \. \#> to exclude emacs temporary
+files
 
 =head1 Subroutines/Methods
 
 =head2 setup_components
 
-This overloads the core method. For each config key matching { \A
-([MVC]|Model|View|Controller) :: } it checks if the corresponding
+This overloads the core method. For each config key matching B<\A
+([MVC]|Model|View|Controller) ::> it checks if the corresponding
 component already exists, and if it doesn't this method creates it on
 the fly. The base class is set to
-C<MyApp-E<gt>config-E<gt>{$component}-E<gt>{base_class}> if it exists,
+C<< MyApp->config->{$component}->{base_class} >> if it exists,
 C<Catalyst::$component> (with [MVC] expanded to the full component
-type) otherwise. The B<base_class> can be an array ref in which case
+type) otherwise. The I<base_class> can be an array ref in which case
 the defined class will inherit from all classes in the list (multiple
 inheritance).
 
@@ -205,4 +212,3 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
 # mode: perl
 # tab-width: 3
 # End:
-
