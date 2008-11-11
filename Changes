@@ -1,5 +1,8 @@
 Revision history for Catalyst::Plugin::ConfigComponents
 
+0.1.49   11/11/2008
+         - New approach to CPAN Testers
+
 0.1.45   28/10/2008
          - Turned CPAN testing off again
 
