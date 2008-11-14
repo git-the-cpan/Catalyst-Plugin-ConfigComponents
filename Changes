@@ -1,5 +1,9 @@
 Revision history for Catalyst::Plugin::ConfigComponents
 
+0.1.50   14/11/2008
+         - Added BEGIN block in tests. This should work around vpit's
+           broken smoke tester
+
 0.1.49   11/11/2008
          - New approach to CPAN Testers
 

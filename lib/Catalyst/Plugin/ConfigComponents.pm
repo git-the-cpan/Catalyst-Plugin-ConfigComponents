@@ -1,6 +1,6 @@
 package Catalyst::Plugin::ConfigComponents;
 
-# @(#)$Id: ConfigComponents.pm 49 2008-11-11 23:05:36Z pjf $
+# @(#)$Id: ConfigComponents.pm 50 2008-11-14 03:33:43Z pjf $
 
 use strict;
 use warnings;
@@ -8,7 +8,7 @@ use Catalyst::Utils;
 use Devel::InnerPackage ();
 use Module::Pluggable::Object ();
 
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 49 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 50 $ =~ /\d+/gmx );
 
 sub setup_components {
    my $class   = shift;
@@ -97,7 +97,7 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
 
 =head1 Version
 
-0.1.$Revision: 49 $
+0.1.$Revision: 50 $
 
 =head1 Synopsis
 
@@ -212,3 +212,4 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
 # mode: perl
 # tab-width: 3
 # End:
+

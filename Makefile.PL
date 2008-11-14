@@ -16,8 +16,10 @@ WriteMakefile
                            'Catalyst' => '5.7012',
                            'Devel::InnerPackage' => '0.3',
                            'Module::Pluggable::Object' => '3.6',
+                           'Path::Class' => '0.16',
                            'Test::Harness' => '2.64',
                            'Test::More' => '0.74',
+                           'Test::Pod' => '1.14',
                            'version' => '0.74'
                          },
           'INSTALLDIRS' => 'site',

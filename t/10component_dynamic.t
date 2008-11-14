@@ -6,11 +6,14 @@ use FindBin;
 use lib ("$FindBin::Bin/lib", "$FindBin::Bin/../lib");
 use Test::More;
 
-if ($ENV{AUTOMATED_TESTING} || ($ENV{PERL5OPT} || q()) =~ m{ CPAN-Reporter }mx) {
-   plan skip_all => q(CPAN Testing stopped);
-}
+BEGIN {
+   if ($ENV{AUTOMATED_TESTING}
+       || ($ENV{PERL5OPT} || q()) =~ m{ CPAN-Reporter }mx) {
+      plan skip_all => q(CPAN Testing stopped);
+   }
 
-plan tests => 27;
+   plan tests => 27;
+}
 
 {
     package MyApp;
