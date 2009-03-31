@@ -3,7 +3,7 @@ Name
     entries
 
 Version
-    0.1.$Revision: 50 $
+    0.1.$Revision: 60 $
 
 Synopsis
        # In your Catalyst application
@@ -55,10 +55,17 @@ Subroutines/Methods
     defined class will inherit from all classes in the list (multiple
     inheritance).
 
+    You may want to add the line:
+
+       Class::C3::initialize();
+
+    to your Catalyst application after the "__PACKAGE__->setup" call if the
+    base class creates any "diamond" patterns in the inheritance tree
+
   _expand_component_type
     Expands the MVC abbreviations to Model, View and Controller respectively
 
-  _load_component_and_children
+  _setup_component_and_children
     Calls "setup_component" for the given component and all it's inner
     packages
 
@@ -67,6 +74,7 @@ Diagnostics
 
 Dependencies
     Catalyst::Utils
+    Class::C3
     Devel::InnerPackage
     Module::Pluggable::Object
 

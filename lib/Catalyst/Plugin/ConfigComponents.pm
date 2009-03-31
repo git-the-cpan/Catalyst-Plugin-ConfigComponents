@@ -1,27 +1,29 @@
 package Catalyst::Plugin::ConfigComponents;
 
-# @(#)$Id: ConfigComponents.pm 50 2008-11-14 03:33:43Z pjf $
+# @(#)$Id: ConfigComponents.pm 60 2009-01-20 16:59:08Z pjf $
 
 use strict;
 use warnings;
+use Class::C3;
 use Catalyst::Utils;
 use Devel::InnerPackage ();
 use Module::Pluggable::Object ();
 
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 50 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 60 $ =~ /\d+/gmx );
 
 sub setup_components {
    my $class   = shift;
-   my $config  = $class->config->{ setup_components };
+   my $config  = $class->config->{ "Plugin::ConfigComponents" }
+              || $class->config->{ setup_components };
    my @paths   = qw(::Controller ::C ::Model ::M ::View ::V);
 
    push @paths, @{ delete $config->{ search_extra } || [] };
 
    my $exclude = delete $config->{ exclude_pattern } || q(\A \z);
    my $prefix  = join q(|), map { m{ :: (.*) \z }mx } @paths;
-   my $finder  = Module::Pluggable::Object->new
-      ( search_path => [ map { m{ \A :: }mx ? $class.$_ : $_ } @paths ],
-        %{ $config } );
+   my $paths   = [ map { m{ \A :: }mx ? $class.$_ : $_ } @paths ];
+   my $finder  = Module::Pluggable::Object->new( search_path => $paths,
+                                                 %{ $config } );
    my @comps   = grep { !m{ $exclude }mx }
                  sort { length $a <=> length $b } $finder->plugins;
    my %comps   = map { $_ => 1 } @comps;
@@ -29,7 +31,7 @@ sub setup_components {
    for my $component (@comps) {
       Catalyst::Utils::ensure_class_loaded( $component,
                                             { ignore_loaded => 1 } );
-      $class->_load_component_and_children( $component, \%comps );
+      $class->_setup_component_and_children( $component, \%comps );
    }
 
    my @config_comps
@@ -42,19 +44,11 @@ sub setup_components {
 
       next if ($class->components->{ $component });
 
-      my $base_class = delete $class->config->{ $suffix }->{ base_class }
-                    || $class->_expand_component_type( "Catalyst::$suffix" );
+      my $bases = delete $class->config->{ $suffix }->{ base_class }
+               || $class->_expand_component_type( "Catalyst::$suffix" );
 
-      $base_class = [ $base_class ] unless (ref $base_class eq q(ARRAY));
-
-      for my $base (reverse @{ $base_class }) {
-         Catalyst::Utils::ensure_class_loaded( $base );
-         ## no critic
-         { no strict 'refs'; unshift @{ "$component\::ISA" }, $base }
-         ## critic
-      }
-
-      $class->_load_component_and_children( $component, \%comps );
+      $class->_load_component( $component, $bases );
+      $class->_setup_component_and_children( $component, \%comps );
    }
 
    return;
@@ -70,12 +64,35 @@ sub _expand_component_type {
    return $class;
 }
 
-sub _load_component_and_children {
+sub _load_component {
+   my ($class, $child, $parents) = @_;
+
+   $parents = [ $parents ] unless (ref $parents eq q(ARRAY));
+
+   for my $parent (reverse @{ $parents }) {
+      Catalyst::Utils::ensure_class_loaded( $parent );
+      ## no critic
+      {  no strict 'refs';
+         unless ($child eq $parent || $child->isa( $parent )) {
+            unshift @{ "$child\::ISA" }, $parent;
+         }
+      }
+      ## critic
+   }
+
+   unless (exists $Class::C3::MRO{ $child }) {
+      eval "package $child; import Class::C3;";
+   }
+
+   return;
+}
+
+sub _setup_component_and_children {
    my ($class, $component, $comps) = @_;
 
    my %modules = ( $component => $class->setup_component( $component ),
                    map  { $_ => $class->setup_component( $_ ) }
-                   grep { not exists $comps->{ $_ } }
+                   grep { !$comps->{ $_ } }
                    Devel::InnerPackage::list_packages( $component ) );
 
    for my $key ( keys %modules ) {
@@ -97,7 +114,7 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
 
 =head1 Version
 
-0.1.$Revision: 50 $
+0.1.$Revision: 60 $
 
 =head1 Synopsis
 
@@ -155,12 +172,19 @@ type) otherwise. The I<base_class> can be an array ref in which case
 the defined class will inherit from all classes in the list (multiple
 inheritance).
 
+You may want to add the line:
+
+   Class::C3::initialize();
+
+to your Catalyst application after the C<< __PACKAGE__->setup >> call if
+the base class creates any "diamond" patterns in the inheritance tree
+
 =head2 _expand_component_type
 
 Expands the MVC abbreviations to Model, View and Controller
 respectively
 
-=head2 _load_component_and_children
+=head2 _setup_component_and_children
 
 Calls C<setup_component> for the given component and all it's inner
 packages
@@ -174,6 +198,8 @@ None
 =over 3
 
 =item L<Catalyst::Utils>
+
+=item L<Class::C3>
 
 =item L<Devel::InnerPackage>
 

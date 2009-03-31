@@ -1,5 +1,15 @@
 Revision history for Catalyst::Plugin::ConfigComponents
 
+
+         - Sorted use of C3
+
+0.1.57   17/12/2008
+         - Use "Plugin::ConfigComponents" as a config key in
+           preference to "setup_compenents"
+         - Commented out calls to C3 because they slow compilation
+           down and don't seem to do anything
+         - Added call to Class::C3::reinitialize if C3 is loaded
+
 0.1.50   14/11/2008
          - Added BEGIN block in tests. This should work around vpit's
            broken smoke tester
