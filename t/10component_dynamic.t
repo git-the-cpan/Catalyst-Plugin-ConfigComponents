@@ -1,10 +1,13 @@
-#!/usr/bin/perl
+# @(#)$Id: 10component_dynamic.t 76 2009-06-11 18:35:59Z pjf $
 
 use strict;
 use warnings;
+use version; our $VERSION = qv( sprintf '0.2.%d', q$Rev: 76 $ =~ /\d+/gmx );
 use File::Spec::Functions;
 use FindBin  qw( $Bin );
 use lib (catdir( $Bin, q(lib) ), catdir( $Bin, updir, q(lib) ));
+
+use English  qw(-no_match_vars);
 use Test::More;
 
 BEGIN {
@@ -43,3 +46,8 @@ for my $comp (qw/Model View Controller/) {
       isa_ok(MyApp->$method("$type\::Sub"), "Catalyst::$comp");
    }
 }
+
+# Local Variables:
+# mode: perl
+# tab-width: 3
+# End:

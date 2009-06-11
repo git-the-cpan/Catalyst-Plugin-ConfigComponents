@@ -1,6 +1,13 @@
 Revision history for Catalyst::Plugin::ConfigComponents
 
+0.2
+         - Adapted for Catalyst 5.8. C::U::ensure_class_loaded no
+           longer usable
+         - Improved testing idioms
+         - Updated POD coverage test
 
+0.1.62   05/04/2009
+         - More CPAN testing stuff
          - Sorted use of C3
 
 0.1.57   17/12/2008

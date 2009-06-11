@@ -14,16 +14,17 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 ade74cdbcb093190c047a3ceb643acf0a1ec7f07 Changes
+SHA1 1ab4ab4ba0db6ded4f294d51ad74c6de1773db48 Changes
 SHA1 0190f62d6871f7927dcc90e40797c0f20645ddea LICENSE
-SHA1 e0251680e6e0cca8783113b3d0e22352e65a9c30 MANIFEST
-SHA1 e4a94d47cfadee4b223fa05611bf90499d30a498 META.yml
-SHA1 bfdaf1d879be27429df321f7dcb693569e580119 Makefile.PL
-SHA1 c0c4733dcc6c0cf9af15e1c07b3afe77fb198e1e README
-SHA1 d05d837caa819f4adfe95bacc89b685bc6b2284f lib/Catalyst/Plugin/ConfigComponents.pm
-SHA1 e7caec46b42f189136debadb4dce9f5d264815fc t/02pod.t
-SHA1 9a1179b53ed4bdddcc7010455c518bbbfe528cd0 t/03podcoverage.t
-SHA1 a8250b8be473a5ae9ac991ffed0ff2dd1c0bcb65 t/10component_dynamic.t
+SHA1 8f22caf6c69dd2ebbfb7124a45069dde0d52a79c MANIFEST
+SHA1 f14cdfc3837f5196c119af97561d0810bd13795c META.yml
+SHA1 a402861c4f2b45b81af373ceba4c7b7efd1e3118 Makefile.PL
+SHA1 fe73d29dc158aadfec28a3da07c3110d80d4ad2f README
+SHA1 2b8a2a65a03d69589ecb8dd3c340427ae94e4614 lib/Catalyst/Plugin/ConfigComponents.pm
+SHA1 f5de56b1c4a2de9101789c1cb8407de738628c4a t/01always_pass.t
+SHA1 61b43f83eee383f83feff45db2c0a270c267ddc1 t/02pod.t
+SHA1 99aec8663f354cc6d25354a7eda2e104894504ea t/03podcoverage.t
+SHA1 247de22ff6e3c171b4ee88caaa933e4c26271c5b t/10component_dynamic.t
 SHA1 48411f6672db2cea8ed55c15aaef8310742315f6 t/lib/Catalyst/Component/Implicit.pm
 SHA1 b42917687a63cadecc2de8493d9625e6cec960c8 t/lib/Catalyst/Controller/Implicit.pm
 SHA1 a629c4583bfdb1c1a320010e71088c9ecd87ee1f t/lib/Catalyst/Model/Implicit.pm
@@ -34,9 +35,9 @@ SHA1 e95f7c7bfcab738b6062e238b68c20f166498402 t/lib/CatalystX/View.pm
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.6 (GNU/Linux)
 
-iQCVAwUBSdFTMc4+W2711T3pAQIO4gP8CHiaXwIipRAadWzVjzjhGm8yGklNxsKU
-7NRHE64LLFPbOI8ugpShU7G4T/jw6AySEu8lkoOm/0Jsk60mETCk/IJBxBQBpS4Z
-PrJLxG8RQ/EHAqe3Hrym3BarYwzqrV4SPGE9LJhHthTVWfv8PbYM9IS1gBg+PEJp
-9derqlprXsw=
-=xD1q
+iQCVAwUBSjFO0s4+W2711T3pAQL8JgP/W+umYnCZ+iJrc2p6fXwOVejbM88hj9EA
+3Fm+onU/71awR0EOTziTiMvAG68ZzqwwphCjTAJmXj9PYzhfMUcuRrhJPg1KeEnp
+M7ffbA01zO4nKUtt7XDX/rHh/16mWrojmH6mr2OnPjdWykW2G2bcvaNCM2yqE53U
++rdUvqv2CbU=
+=3EVe
 -----END PGP SIGNATURE-----

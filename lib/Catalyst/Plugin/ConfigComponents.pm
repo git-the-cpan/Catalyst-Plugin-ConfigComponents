@@ -1,15 +1,16 @@
 package Catalyst::Plugin::ConfigComponents;
 
-# @(#)$Id: ConfigComponents.pm 60 2009-01-20 16:59:08Z pjf $
+# @(#)$Id: ConfigComponents.pm 76 2009-06-11 18:35:59Z pjf $
 
 use strict;
 use warnings;
 use Class::C3;
-use Catalyst::Utils;
+use Class::Inspector;
 use Devel::InnerPackage ();
+use English qw(-no_match_vars);
 use Module::Pluggable::Object ();
 
-use version; our $VERSION = qv( sprintf '0.1.%d', q$Rev: 60 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.2.%d', q$Rev: 76 $ =~ /\d+/gmx );
 
 sub setup_components {
    my $class   = shift;
@@ -29,8 +30,7 @@ sub setup_components {
    my %comps   = map { $_ => 1 } @comps;
 
    for my $component (@comps) {
-      Catalyst::Utils::ensure_class_loaded( $component,
-                                            { ignore_loaded => 1 } );
+      $class->_ensure_class_loaded( $component, { ignore_loaded => 1 } );
       $class->_setup_component_and_children( $component, \%comps );
    }
 
@@ -56,6 +56,24 @@ sub setup_components {
 
 # Private methods
 
+sub _ensure_class_loaded {
+   my ($self, $class, $opts) = @_; my $error;
+
+   return 1 if (!$opts->{ignore_loaded} && Class::Inspector->loaded( $class ));
+
+   ## no critic
+   {  local $EVAL_ERROR; eval "require $class;"; $error = $EVAL_ERROR; }
+   ## critic
+
+   die $error if ($error);
+
+   unless (Class::Inspector->loaded( $class )) {
+      die "Class $class failed to load";
+   }
+
+   return 1;
+}
+
 sub _expand_component_type {
    my ($self, $class) = @_; my %expand = qw(M Model V View C Controller);
 
@@ -70,7 +88,7 @@ sub _load_component {
    $parents = [ $parents ] unless (ref $parents eq q(ARRAY));
 
    for my $parent (reverse @{ $parents }) {
-      Catalyst::Utils::ensure_class_loaded( $parent );
+      $class->_ensure_class_loaded( $parent );
       ## no critic
       {  no strict 'refs';
          unless ($child eq $parent || $child->isa( $parent )) {
@@ -114,7 +132,7 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
 
 =head1 Version
 
-0.1.$Revision: 60 $
+0.2.$Revision: 76 $
 
 =head1 Synopsis
 
@@ -238,4 +256,3 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
 # mode: perl
 # tab-width: 3
 # End:
-
