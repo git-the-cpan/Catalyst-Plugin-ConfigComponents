@@ -3,57 +3,57 @@ Name
     entries
 
 Version
-    0.2.$Revision: 76 $
+    0.3.$Revision: 102 $
 
 Synopsis
        # In your Catalyst application
-       package MyApp;
+       package YourApp;
 
        use Catalyst qw(... ConfigComponents ...);
 
        __PACKAGE__->setup;
 
+       Class::C3::initialize();
+
        # In your applications config file
-       <component name="Model::Help">
-          <base_class>MyExternal::Model::HelpE<lt>/base_class>
-          <base_class>Catalyst::ModelE<lt>/base_class>
+       <component name="Model::YourModel">
+          <parent_classes>YourExternal::ModelE<lt>/parent_classes>
+          <parent_classes>Catalyst::ModelE<lt>/parent_classes>
        </component>
 
-       # Do not create MyApp::Model::Help this module will do it for you
+       # Do not create YourApp::Model::YourModel this module will do it for you
 
-       # In a controller this will call the get_help method in
-       # the class MyExternal::Model::Help
-       my $help = $c->model( q(Help) )->get_help( ... );
+       # In a controller this will call your_method in
+       # the class YourExternal::Model
+       $result = $c->model( q(YourModel) )->your_method( ... );
 
 Description
     When the application starts this module creates Catalyst component class
     definitions using config information. The defined class inherits from
-    the list of base classes referenced in the config file
+    the list of parent classes referenced in the config file
 
     This code was originally posted to the Catalyst mailing list by Dagfinn
     Ilmari Mannsåker as a patch in response to an idea by Castaway. I
     thought it would be better as a plugin and have extended it to handle MI
 
 Configuration and Environment
-    Specify a *setup_components* config option to pass additional options
-    directly to Module::Pluggable. To add additional search paths, specify a
-    key named *search_extra* as an array reference. Items in the array
-    beginning with :: will have the application class name prepended to
-    them. Add a key named *exclude_pattern* as a regular expression to match
-    component names to exclude, e.g. :: \. \# to exclude emacs temporary
-    files
+    Specify a *Plugin::ConfigComponents* config option. Attributes are
 
-Subroutines/Methods
-  setup_components
-    This overloads the core method. For each config key matching \A
-    ([MVC]|Model|View|Controller) :: it checks if the corresponding
-    component already exists, and if it doesn't this method creates it on
-    the fly. The base class is set to
-    "MyApp->config->{$component}->{base_class}" if it exists,
-    "Catalyst::$component" (with [MVC] expanded to the full component type)
-    otherwise. The *base_class* can be an array ref in which case the
-    defined class will inherit from all classes in the list (multiple
-    inheritance).
+    *component_active*
+       If the *component_active* config attribute exists and is false the
+       component will not be loaded
+
+    *parent_classes*
+       List of classes for the derived component to inherit from
+
+    *search_extra*
+       To add additional search paths, specify a key named *search_extra* as
+       an array reference. Items in the array beginning with :: will have
+       the application class name prepended to them
+
+    *setup_method*
+       Defaults to "_setup_config_components", the method to call after the
+       call to Catalyst::setup_components
 
     You may want to add the line:
 
@@ -62,21 +62,28 @@ Subroutines/Methods
     to your Catalyst application after the "__PACKAGE__->setup" call if the
     base class creates any "diamond" patterns in the inheritance tree
 
-  _expand_component_type
-    Expands the MVC abbreviations to Model, View and Controller respectively
+Subroutines/Methods
+  setup_components
+    Calls the setup method (which defaults to "_setup_config_components")
+    after the parent method
 
-  _setup_component_and_children
-    Calls "setup_component" for the given component and all it's inner
-    packages
+  _setup_config_components
+    For each config key matching "\A Model|View|Controller ::" it checks if
+    the corresponding component already exists, and if it doesn't this
+    method creates it at run-time
+
+    The parent class is set to "MyApp->config->{ $component
+    }->{parent_classes}" if it exists, "Catalyst::$component" otherwise. The
+    *parent_classes* can be an array ref in which case the defined class
+    will inherit from all classes in the list (multiple inheritance)
 
 Diagnostics
     None
 
 Dependencies
-    Catalyst::Utils
     Class::C3
+    Catalyst::Utils
     Devel::InnerPackage
-    Module::Pluggable::Object
 
 Incompatibilities
     There are no known incompatibilities in this module
@@ -89,7 +96,7 @@ Author
     Peter Flanigan, "<Support at RoxSoft.co.uk>"
 
 License and Copyright
-    Copyright (c) 2008 Peter Flanigan. All rights reserved
+    Copyright (c) 2008-2009 Peter Flanigan. All rights reserved
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself. See perlartistic

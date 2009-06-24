@@ -1,85 +1,65 @@
-package Catalyst::Plugin::ConfigComponents;
+# @(#)$Id: ConfigComponents.pm 102 2009-06-24 18:13:45Z pjf $
 
-# @(#)$Id: ConfigComponents.pm 76 2009-06-11 18:35:59Z pjf $
+package Catalyst::Plugin::ConfigComponents;
 
 use strict;
 use warnings;
-use Class::C3;
-use Class::Inspector;
-use Devel::InnerPackage ();
-use English qw(-no_match_vars);
-use Module::Pluggable::Object ();
+use namespace::autoclean;
+use version; our $VERSION = qv( sprintf '0.3.%d', q$Rev: 102 $ =~ /\d+/gmx );
 
-use version; our $VERSION = qv( sprintf '0.2.%d', q$Rev: 76 $ =~ /\d+/gmx );
+use Class::C3;
+use Catalyst::Utils;
+use Devel::InnerPackage ();
 
 sub setup_components {
-   my $class   = shift;
-   my $config  = $class->config->{ "Plugin::ConfigComponents" }
-              || $class->config->{ setup_components };
-   my @paths   = qw(::Controller ::C ::Model ::M ::View ::V);
+   my $class  = shift;
+   my $config = $class->config->{ q(Plugin::ConfigComponents) };
+   my $method = delete $config->{setup_method} || q(_setup_config_components);
 
-   push @paths, @{ delete $config->{ search_extra } || [] };
-
-   my $exclude = delete $config->{ exclude_pattern } || q(\A \z);
-   my $prefix  = join q(|), map { m{ :: (.*) \z }mx } @paths;
-   my $paths   = [ map { m{ \A :: }mx ? $class.$_ : $_ } @paths ];
-   my $finder  = Module::Pluggable::Object->new( search_path => $paths,
-                                                 %{ $config } );
-   my @comps   = grep { !m{ $exclude }mx }
-                 sort { length $a <=> length $b } $finder->plugins;
-   my %comps   = map { $_ => 1 } @comps;
-
-   for my $component (@comps) {
-      $class->_ensure_class_loaded( $component, { ignore_loaded => 1 } );
-      $class->_setup_component_and_children( $component, \%comps );
-   }
-
-   my @config_comps
-      = grep { m{ \A (?:$prefix) :: }mx } keys %{ $class->config };
-
-   $comps{ "$class\::$_" } = 1 for (@config_comps);
-
-   for my $suffix (sort { length $a <=> length $b } @config_comps) {
-      my $component = "$class\::$suffix";
-
-      next if ($class->components->{ $component });
-
-      my $bases = delete $class->config->{ $suffix }->{ base_class }
-               || $class->_expand_component_type( "Catalyst::$suffix" );
-
-      $class->_load_component( $component, $bases );
-      $class->_setup_component_and_children( $component, \%comps );
-   }
-
+   $class->next::method; # After parent class setup_components
+   $class->$method( $config );
    return;
 }
 
 # Private methods
 
-sub _ensure_class_loaded {
-   my ($self, $class, $opts) = @_; my $error;
+sub _setup_config_components {
+   my ($class, $config) = @_;
 
-   return 1 if (!$opts->{ignore_loaded} && Class::Inspector->loaded( $class ));
+   my @paths = qw(::Controller ::Model ::View);
 
-   ## no critic
-   {  local $EVAL_ERROR; eval "require $class;"; $error = $EVAL_ERROR; }
-   ## critic
+   push @paths, @{ delete $config->{ search_extra } || [] };
 
-   die $error if ($error);
+   my $prefix = join q(|), map { m{ :: (.*) \z }mx } @paths;
+   my @comps  = grep { m{ \A (?:$prefix) :: }mx } keys %{ $class->config };
 
-   unless (Class::Inspector->loaded( $class )) {
-      die "Class $class failed to load";
+   for my $suffix (sort { length $a <=> length $b } @comps) {
+      my $component = "$class\::$suffix";
+
+      next if ($class->components->{ $component });
+
+      my $cc     = $class->config->{ $suffix };
+      my $active = delete $cc->{component_active};
+
+      next if (defined $active and not $active);
+
+      my $parents = delete $cc->{parent_classes}
+                    delete $cc->{base_class} # Deprecated
+                 || "Catalyst::$suffix";
+
+      $class->_load_component( $component, $parents );
+
+      my %modules = ( $component => $class->setup_component( $component ),
+                      map  { $_ => $class->setup_component( $_ ) }
+                      grep { not exists $class->components->{ $_ } }
+                      Devel::InnerPackage::list_packages( $component ) );
+
+      for my $key ( keys %modules ) {
+         $class->components->{ $key } = $modules{ $key };
+      }
    }
 
-   return 1;
-}
-
-sub _expand_component_type {
-   my ($self, $class) = @_; my %expand = qw(M Model V View C Controller);
-
-   $class =~ s/ (?<=::) ([MVC]) (?=::) /$expand{$1}/mx;
-
-   return $class;
+   return;
 }
 
 sub _load_component {
@@ -88,10 +68,10 @@ sub _load_component {
    $parents = [ $parents ] unless (ref $parents eq q(ARRAY));
 
    for my $parent (reverse @{ $parents }) {
-      $class->_ensure_class_loaded( $parent );
+      Catalyst::Utils::ensure_class_loaded( $parent );
       ## no critic
       {  no strict 'refs';
-         unless ($child eq $parent || $child->isa( $parent )) {
+         unless ($child eq $parent or $child->isa( $parent )) {
             unshift @{ "$child\::ISA" }, $parent;
          }
       }
@@ -99,22 +79,7 @@ sub _load_component {
    }
 
    unless (exists $Class::C3::MRO{ $child }) {
-      eval "package $child; import Class::C3;";
-   }
-
-   return;
-}
-
-sub _setup_component_and_children {
-   my ($class, $component, $comps) = @_;
-
-   my %modules = ( $component => $class->setup_component( $component ),
-                   map  { $_ => $class->setup_component( $_ ) }
-                   grep { !$comps->{ $_ } }
-                   Devel::InnerPackage::list_packages( $component ) );
-
-   for my $key ( keys %modules ) {
-      $class->components->{ $key } = $modules{ $key };
+      eval "package $child; import Class::C3;"; ## no critic
    }
 
    return;
@@ -132,34 +97,36 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
 
 =head1 Version
 
-0.2.$Revision: 76 $
+0.3.$Revision: 102 $
 
 =head1 Synopsis
 
    # In your Catalyst application
-   package MyApp;
+   package YourApp;
 
    use Catalyst qw(... ConfigComponents ...);
 
    __PACKAGE__->setup;
 
+   Class::C3::initialize();
+
    # In your applications config file
-   <component name="Model::Help">
-      <base_class>MyExternal::Model::HelpE<lt>/base_class>
-      <base_class>Catalyst::ModelE<lt>/base_class>
+   <component name="Model::YourModel">
+      <parent_classes>YourExternal::ModelE<lt>/parent_classes>
+      <parent_classes>Catalyst::ModelE<lt>/parent_classes>
    </component>
 
-   # Do not create MyApp::Model::Help this module will do it for you
+   # Do not create YourApp::Model::YourModel this module will do it for you
 
-   # In a controller this will call the get_help method in
-   # the class MyExternal::Model::Help
-   my $help = $c->model( q(Help) )->get_help( ... );
+   # In a controller this will call your_method in
+   # the class YourExternal::Model
+   $result = $c->model( q(YourModel) )->your_method( ... );
 
 =head1 Description
 
 When the application starts this module creates Catalyst component
 class definitions using config information. The defined class inherits
-from the list of base classes referenced in the config file
+from the list of parent classes referenced in the config file
 
 This code was originally posted to the Catalyst mailing list by
 Dagfinn Ilmari Mannsåker as a patch in response to an idea by
@@ -168,27 +135,31 @@ it to handle MI
 
 =head1 Configuration and Environment
 
-Specify a I<setup_components> config option to pass additional options
-directly to L<Module::Pluggable>. To add additional search paths, specify
-a key named I<search_extra> as an array reference. Items in the array
-beginning with B<::> will have the application class name prepended to
-them. Add a key named I<exclude_pattern> as a regular expression to match
-component names to exclude, e.g. B<:: \. \#> to exclude emacs temporary
-files
+Specify a I<Plugin::ConfigComponents> config option. Attributes are
 
-=head1 Subroutines/Methods
+=over 3
 
-=head2 setup_components
+=item I<component_active>
 
-This overloads the core method. For each config key matching B<\A
-([MVC]|Model|View|Controller) ::> it checks if the corresponding
-component already exists, and if it doesn't this method creates it on
-the fly. The base class is set to
-C<< MyApp->config->{$component}->{base_class} >> if it exists,
-C<Catalyst::$component> (with [MVC] expanded to the full component
-type) otherwise. The I<base_class> can be an array ref in which case
-the defined class will inherit from all classes in the list (multiple
-inheritance).
+If the I<component_active> config attribute exists and is false the
+component will not be loaded
+
+=item I<parent_classes>
+
+List of classes for the derived component to inherit from
+
+=item I<search_extra>
+
+To add additional search paths, specify a key named I<search_extra>
+as an array reference. Items in the array beginning with B<::> will
+have the application class name prepended to them
+
+=item I<setup_method>
+
+Defaults to C<_setup_config_components>, the method to call after the
+call to L<Catalyst::setup_components|Catalyst/setup_components>
+
+=back
 
 You may want to add the line:
 
@@ -197,15 +168,25 @@ You may want to add the line:
 to your Catalyst application after the C<< __PACKAGE__->setup >> call if
 the base class creates any "diamond" patterns in the inheritance tree
 
-=head2 _expand_component_type
+=head1 Subroutines/Methods
 
-Expands the MVC abbreviations to Model, View and Controller
-respectively
+=head2 setup_components
 
-=head2 _setup_component_and_children
+Calls the setup method (which defaults to
+L</_setup_config_components>) after the L<parent
+method|Catalyst/setup_components>
 
-Calls C<setup_component> for the given component and all it's inner
-packages
+=head2 _setup_config_components
+
+For each config key matching C<\A Model|View|Controller ::> it checks
+if the corresponding component already exists, and if it doesn't this
+method creates it at run-time
+
+The parent class is set to C<< MyApp->config->{ $component
+}->{parent_classes} >> if it exists, C<Catalyst::$component>
+otherwise. The I<parent_classes> can be an array ref in which case the
+defined class will inherit from all classes in the list (multiple
+inheritance)
 
 =head1 Diagnostics
 
@@ -215,13 +196,11 @@ None
 
 =over 3
 
-=item L<Catalyst::Utils>
-
 =item L<Class::C3>
 
-=item L<Devel::InnerPackage>
+=item L<Catalyst::Utils>
 
-=item L<Module::Pluggable::Object>
+=item L<Devel::InnerPackage>
 
 =back
 
@@ -241,7 +220,7 @@ Peter Flanigan,  C<< <Support at RoxSoft.co.uk> >>
 
 =head1 License and Copyright
 
-Copyright (c) 2008 Peter Flanigan. All rights reserved
+Copyright (c) 2008-2009 Peter Flanigan. All rights reserved
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself. See L<perlartistic>

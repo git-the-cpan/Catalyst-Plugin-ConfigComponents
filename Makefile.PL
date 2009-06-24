@@ -15,11 +15,10 @@ WriteMakefile
           'PREREQ_PM' => {
                            'Catalyst' => '5.7012',
                            'Class::C3' => '0.19',
-                           'Class::Inspector' => '1.18',
                            'Devel::InnerPackage' => '0.3',
-                           'Module::Pluggable::Object' => '3.6',
                            'Path::Class' => '0.16',
                            'Test::More' => '0.74',
+                           'namespace::autoclean' => '0.05',
                            'version' => '0.74'
                          },
           'INSTALLDIRS' => 'site',

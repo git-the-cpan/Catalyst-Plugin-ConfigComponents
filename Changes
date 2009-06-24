@@ -1,6 +1,16 @@
 Revision history for Catalyst::Plugin::ConfigComponents
 
-0.2
+         - Checks "setup_method" attribute default _setup_config_components
+         - Using C::U::ensure_class_loaded again
+         - Set "component_active" to false to stop component loading
+         - Major refactor. No longer uses Module::Plugable::Object
+         - Replaced "base_class" in favour of "parent_classes"
+         - No longer use the "setup_components" config entry
+         - Use namespace::autoclean
+         - Does an "after" setup_components
+         - Drop support for ::M ::V ::C namespaces
+
+0.2.76   11/06/2009
          - Adapted for Catalyst 5.8. C::U::ensure_class_loaded no
            longer usable
          - Improved testing idioms

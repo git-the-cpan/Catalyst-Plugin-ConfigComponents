@@ -14,30 +14,30 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 1ab4ab4ba0db6ded4f294d51ad74c6de1773db48 Changes
+SHA1 e7e982379e7b6175dd924fb087bb5937e0ac6053 Changes
 SHA1 0190f62d6871f7927dcc90e40797c0f20645ddea LICENSE
 SHA1 8f22caf6c69dd2ebbfb7124a45069dde0d52a79c MANIFEST
-SHA1 f14cdfc3837f5196c119af97561d0810bd13795c META.yml
-SHA1 a402861c4f2b45b81af373ceba4c7b7efd1e3118 Makefile.PL
-SHA1 fe73d29dc158aadfec28a3da07c3110d80d4ad2f README
-SHA1 2b8a2a65a03d69589ecb8dd3c340427ae94e4614 lib/Catalyst/Plugin/ConfigComponents.pm
+SHA1 72fd2ade9b8fd1b3e668814470ac8ef12022b669 META.yml
+SHA1 8da6eb5492b9f1d566afdda9737c604a7d691f08 Makefile.PL
+SHA1 4b113e4a701bb42a13e83c013e0e4811450a6698 README
+SHA1 f25aac64dc3c014c26771f082190251d9958b967 lib/Catalyst/Plugin/ConfigComponents.pm
 SHA1 f5de56b1c4a2de9101789c1cb8407de738628c4a t/01always_pass.t
-SHA1 61b43f83eee383f83feff45db2c0a270c267ddc1 t/02pod.t
-SHA1 99aec8663f354cc6d25354a7eda2e104894504ea t/03podcoverage.t
-SHA1 247de22ff6e3c171b4ee88caaa933e4c26271c5b t/10component_dynamic.t
-SHA1 48411f6672db2cea8ed55c15aaef8310742315f6 t/lib/Catalyst/Component/Implicit.pm
-SHA1 b42917687a63cadecc2de8493d9625e6cec960c8 t/lib/Catalyst/Controller/Implicit.pm
-SHA1 a629c4583bfdb1c1a320010e71088c9ecd87ee1f t/lib/Catalyst/Model/Implicit.pm
-SHA1 da0311ff58b39712542e6da33f1f7f47b34dde78 t/lib/Catalyst/View/Implicit.pm
-SHA1 85c40adc6c35943922c7e85778ce39b7f6108b8a t/lib/CatalystX/Controller.pm
-SHA1 08d9de2f7fd105622718be83ab128d992eb6fabb t/lib/CatalystX/Model.pm
-SHA1 e95f7c7bfcab738b6062e238b68c20f166498402 t/lib/CatalystX/View.pm
+SHA1 23cf2a8331afced7a315d2ce4225d7c0e72d9bf6 t/02pod.t
+SHA1 3eef3a6a905ad0139c843ccad16aafe82dba1e67 t/03podcoverage.t
+SHA1 46235c739860bf821f3c56bcccedf7745da13c5e t/10component_dynamic.t
+SHA1 47a300d26c3805e6a553afd6cd6f6fd0395cb55b t/lib/Catalyst/Component/Implicit.pm
+SHA1 616e45248145b77d9a3a9901ba309ad6cf135c1c t/lib/Catalyst/Controller/Implicit.pm
+SHA1 91e2d8c593d6e333b17dd93f040901fb0e09c1cd t/lib/Catalyst/Model/Implicit.pm
+SHA1 2327831b42476beece974dab4553d7bc594020a6 t/lib/Catalyst/View/Implicit.pm
+SHA1 6ee1d4c68870129a40b8780db5cf0e7a6604b72a t/lib/CatalystX/Controller.pm
+SHA1 8679468a0970fb6b4f1f9f4485dbcf65cc945237 t/lib/CatalystX/Model.pm
+SHA1 654a76d18ffd86e0480f475b1a65c44debfd515a t/lib/CatalystX/View.pm
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.6 (GNU/Linux)
 
-iQCVAwUBSjFO0s4+W2711T3pAQL8JgP/W+umYnCZ+iJrc2p6fXwOVejbM88hj9EA
-3Fm+onU/71awR0EOTziTiMvAG68ZzqwwphCjTAJmXj9PYzhfMUcuRrhJPg1KeEnp
-M7ffbA01zO4nKUtt7XDX/rHh/16mWrojmH6mr2OnPjdWykW2G2bcvaNCM2yqE53U
-+rdUvqv2CbU=
-=3EVe
+iQCVAwUBSkJtU84+W2711T3pAQL15wP+M07IO4jaUIeiGiIBRFlUT0zEc5+eTiWY
+psJWmS61MCx06dOLgKpJGGOHG833FJn3BI3m87otAAs59O0AsBD83l3AyI+C4D4n
+4G5sMGwoNuItm1botXBzJA3az9L0xAjj39RQfQ+i/3sqvUsVl6jmWoJ9MrXIxtuF
+Hbk1H0cbEBs=
+=0SIX
 -----END PGP SIGNATURE-----
