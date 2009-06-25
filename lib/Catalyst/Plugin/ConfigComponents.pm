@@ -1,11 +1,11 @@
-# @(#)$Id: ConfigComponents.pm 102 2009-06-24 18:13:45Z pjf $
+# @(#)$Id: ConfigComponents.pm 109 2009-06-25 21:17:17Z pjf $
 
 package Catalyst::Plugin::ConfigComponents;
 
 use strict;
 use warnings;
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.3.%d', q$Rev: 102 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.4.%d', q$Rev: 109 $ =~ /\d+/gmx );
 
 use Class::C3;
 use Catalyst::Utils;
@@ -44,7 +44,7 @@ sub _setup_config_components {
       next if (defined $active and not $active);
 
       my $parents = delete $cc->{parent_classes}
-                    delete $cc->{base_class} # Deprecated
+                 || delete $cc->{base_class} # Deprecated
                  || "Catalyst::$suffix";
 
       $class->_load_component( $component, $parents );
@@ -97,7 +97,7 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
 
 =head1 Version
 
-0.3.$Revision: 102 $
+0.4.$Revision: 109 $
 
 =head1 Synopsis
 
@@ -235,3 +235,4 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
 # mode: perl
 # tab-width: 3
 # End:
+

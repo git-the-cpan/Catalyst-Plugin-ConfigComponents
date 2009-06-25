@@ -1,5 +1,11 @@
 Revision history for Catalyst::Plugin::ConfigComponents
 
+0.3.109  25/06/2009
+         - Distro signing stopped. Module::Signature only looks at
+           pgp.mit.edu and that fails to create the keyID correctly
+         - Fixed back compat "base_class" bug
+
+0.3.102  24/06/2009
          - Checks "setup_method" attribute default _setup_config_components
          - Using C::U::ensure_class_loaded again
          - Set "component_active" to false to stop component loading
