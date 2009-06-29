@@ -1,6 +1,9 @@
 Revision history for Catalyst::Plugin::ConfigComponents
 
-0.3.109  25/06/2009
+0.4.115  29/06/2009
+         - Distro signed with new key
+
+0.4.109  25/06/2009
          - Distro signing stopped. Module::Signature only looks at
            pgp.mit.edu and that fails to create the keyID correctly
          - Fixed back compat "base_class" bug

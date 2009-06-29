@@ -16,3 +16,4 @@ t/lib/CatalystX/View.pm
 Makefile.PL
 README
 META.yml
+SIGNATURE    Added here by Module::Build

@@ -1,0 +1,45 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.55.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It will check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 67edc66f68dc6f8eb1c24ee7c564d1e1a01d7646 Changes
+SHA1 0190f62d6871f7927dcc90e40797c0f20645ddea LICENSE
+SHA1 8f22caf6c69dd2ebbfb7124a45069dde0d52a79c MANIFEST
+SHA1 d272b3781e71943ff766d060570a4b4b0a958db7 META.yml
+SHA1 8da6eb5492b9f1d566afdda9737c604a7d691f08 Makefile.PL
+SHA1 8fa3429b412046d6e59ee062ab00b826807d629a README
+SHA1 c11967100022b7414b4fcd89ad04c7fb0934a5b8 lib/Catalyst/Plugin/ConfigComponents.pm
+SHA1 f5de56b1c4a2de9101789c1cb8407de738628c4a t/01always_pass.t
+SHA1 d83e4cb5c3c2db95f61713d61acc3a3d5f661182 t/02pod.t
+SHA1 9743ff2fb7de7c686499365fa4d93ce88531bd2d t/03podcoverage.t
+SHA1 96170b724417a78388f226c870f7162aaf830a9a t/10component_dynamic.t
+SHA1 47a300d26c3805e6a553afd6cd6f6fd0395cb55b t/lib/Catalyst/Component/Implicit.pm
+SHA1 616e45248145b77d9a3a9901ba309ad6cf135c1c t/lib/Catalyst/Controller/Implicit.pm
+SHA1 91e2d8c593d6e333b17dd93f040901fb0e09c1cd t/lib/Catalyst/Model/Implicit.pm
+SHA1 2327831b42476beece974dab4553d7bc594020a6 t/lib/Catalyst/View/Implicit.pm
+SHA1 6ee1d4c68870129a40b8780db5cf0e7a6604b72a t/lib/CatalystX/Controller.pm
+SHA1 8679468a0970fb6b4f1f9f4485dbcf65cc945237 t/lib/CatalystX/Model.pm
+SHA1 654a76d18ffd86e0480f475b1a65c44debfd515a t/lib/CatalystX/View.pm
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.6 (GNU/Linux)
+
+iQEcBAEBAgAGBQJKSPNvAAoJEK492j4Im1Bpca4IAJ3goX4eFgzXSzZsHgXnDvs8
+b6s6yfo2Y3Fe6BHHP4DzDvhiwH+oB1I3Q3BGI1/NSlfErE5if/jlrIiav/bugA/c
+bw4dlJeYoiews8wY48Cjb3sqpMpocSammJxQS31/cphWAPaekg8uS4mOKfLPY0rx
++CC9Tduwtp6yN1x5S7cUMWlNTfmO67Z9lHEK5dUAxt/BuUNS8yg8zVnrfCFbkvfi
+LEuA90Iqp83t3vqmLAb309WqCgVNV8jjrXbdRpmcg5vpWzKJPzgcQa64fOIMPlw5
+ZUMf/IkrZO/9qrg6zWxQccaspHoxbFzUjuYwrd7X4GNyhSajQq9f48EA2CGwSlo=
+=3BJB
+-----END PGP SIGNATURE-----

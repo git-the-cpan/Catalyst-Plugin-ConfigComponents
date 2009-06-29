@@ -1,11 +1,11 @@
-# @(#)$Id: ConfigComponents.pm 109 2009-06-25 21:17:17Z pjf $
+# @(#)$Id: ConfigComponents.pm 115 2009-06-29 17:00:47Z pjf $
 
 package Catalyst::Plugin::ConfigComponents;
 
 use strict;
 use warnings;
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.4.%d', q$Rev: 109 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.4.%d', q$Rev: 115 $ =~ /\d+/gmx );
 
 use Class::C3;
 use Catalyst::Utils;
@@ -97,7 +97,7 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
 
 =head1 Version
 
-0.4.$Revision: 109 $
+0.4.$Revision: 115 $
 
 =head1 Synopsis
 
@@ -235,4 +235,3 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
 # mode: perl
 # tab-width: 3
 # End:
-
