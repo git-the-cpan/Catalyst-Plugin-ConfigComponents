@@ -1,76 +1,78 @@
-# @(#)$Id: ConfigComponents.pm 115 2009-06-29 17:00:47Z pjf $
+# @(#)$Id: ConfigComponents.pm 125 2009-07-19 12:47:40Z pjf $
 
 package Catalyst::Plugin::ConfigComponents;
 
 use strict;
 use warnings;
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.4.%d', q$Rev: 115 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.5.%d', q$Rev: 125 $ =~ /\d+/gmx );
 
-use Class::C3;
+use Moose::Role;
 use Catalyst::Utils;
 use Devel::InnerPackage ();
 
-sub setup_components {
-   my $class  = shift;
-   my $config = $class->config->{ q(Plugin::ConfigComponents) };
-   my $method = delete $config->{setup_method} || q(_setup_config_components);
+my $KEY = q(Plugin::ConfigComponents);
 
-   $class->next::method; # After parent class setup_components
-   $class->$method( $config );
+after 'setup_components' => sub {
+   my $self = shift; my $config = $self->config->{ $KEY } || {}; my $method;
+
+   if ($method = $config->{setup_method}) { $self->$method( $config ) }
+   else {  $self->_setup_config_components( $config ) }
+
    return;
-}
+};
 
 # Private methods
 
 sub _setup_config_components {
-   my ($class, $config) = @_;
+   my ($self, $plugin_config) = @_;
 
-   my @paths = qw(::Controller ::Model ::View);
+   my $class  = ref $self || $self;
+   my @paths  = qw(::Controller ::Model ::View);
 
-   push @paths, @{ delete $config->{ search_extra } || [] };
+   push @paths, @{ $plugin_config->{ search_extra } || [] };
 
    my $prefix = join q(|), map { m{ :: (.*) \z }mx } @paths;
-   my @comps  = grep { m{ \A (?:$prefix) :: }mx } keys %{ $class->config };
+   my @comps  = grep { m{ \A (?:$prefix) :: }mx } keys %{ $self->config };
 
    for my $suffix (sort { length $a <=> length $b } @comps) {
       my $component = "$class\::$suffix";
 
-      next if ($class->components->{ $component });
+      next if ($self->components->{ $component });
 
-      my $cc     = $class->config->{ $suffix };
-      my $active = delete $cc->{component_active};
+      my $config = $self->config->{ $suffix };
+      my $active = delete $config->{component_active};
 
       next if (defined $active and not $active);
 
-      my $parents = delete $cc->{parent_classes}
-                 || delete $cc->{base_class} # Deprecated
+      my $parents = delete $config->{parent_classes}
+                 || delete $config->{base_class} # Deprecated
                  || "Catalyst::$suffix";
 
-      $class->_load_component( $component, $parents );
+      $self->_load_config_component( $component, $parents );
 
-      my %modules = ( $component => $class->setup_component( $component ),
-                      map  { $_ => $class->setup_component( $_ ) }
-                      grep { not exists $class->components->{ $_ } }
+      my %modules = ( $component => $self->setup_component( $component ),
+                      map  { $_ => $self->setup_component( $_ ) }
+                      grep { not exists $self->components->{ $_ } }
                       Devel::InnerPackage::list_packages( $component ) );
 
       for my $key ( keys %modules ) {
-         $class->components->{ $key } = $modules{ $key };
+         $self->components->{ $key } = $modules{ $key };
       }
    }
 
    return;
 }
 
-sub _load_component {
-   my ($class, $child, $parents) = @_;
+sub _load_config_component {
+   my ($self, $child, $parents) = @_;
 
    $parents = [ $parents ] unless (ref $parents eq q(ARRAY));
 
    for my $parent (reverse @{ $parents }) {
       Catalyst::Utils::ensure_class_loaded( $parent );
       ## no critic
-      {  no strict 'refs';
+      {  no strict q(refs);
          unless ($child eq $parent or $child->isa( $parent )) {
             unshift @{ "$child\::ISA" }, $parent;
          }
@@ -97,14 +99,14 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
 
 =head1 Version
 
-0.4.$Revision: 115 $
+0.5.$Revision: 125 $
 
 =head1 Synopsis
 
    # In your Catalyst application
    package YourApp;
 
-   use Catalyst qw(... ConfigComponents ...);
+   use Catalyst qw(ConfigComponents);
 
    __PACKAGE__->setup;
 
@@ -127,11 +129,6 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
 When the application starts this module creates Catalyst component
 class definitions using config information. The defined class inherits
 from the list of parent classes referenced in the config file
-
-This code was originally posted to the Catalyst mailing list by
-Dagfinn Ilmari Mannsåker as a patch in response to an idea by
-Castaway. I thought it would be better as a plugin and have extended
-it to handle MI
 
 =head1 Configuration and Environment
 
@@ -173,7 +170,7 @@ the base class creates any "diamond" patterns in the inheritance tree
 =head2 setup_components
 
 Calls the setup method (which defaults to
-L</_setup_config_components>) after the L<parent
+L</setup_config_components>) after the L<parent
 method|Catalyst/setup_components>
 
 =head2 _setup_config_components
@@ -196,7 +193,7 @@ None
 
 =over 3
 
-=item L<Class::C3>
+=item L<Moose::Role>
 
 =item L<Catalyst::Utils>
 
@@ -217,6 +214,15 @@ Patches are welcome
 =head1 Author
 
 Peter Flanigan,  C<< <Support at RoxSoft.co.uk> >>
+
+=head1 Acknowledgements
+
+Larry Wall - For the Perl programming language
+
+This code was originally posted to the Catalyst mailing list by
+Dagfinn Ilmari Mannsåker as a patch in response to an idea by
+Castaway. I thought it would be better as a plugin and have extended
+it to handle MI
 
 =head1 License and Copyright
 

@@ -3,13 +3,13 @@ Name
     entries
 
 Version
-    0.4.$Revision: 115 $
+    0.5.$Revision: 125 $
 
 Synopsis
        # In your Catalyst application
        package YourApp;
 
-       use Catalyst qw(... ConfigComponents ...);
+       use Catalyst qw(ConfigComponents);
 
        __PACKAGE__->setup;
 
@@ -31,10 +31,6 @@ Description
     When the application starts this module creates Catalyst component class
     definitions using config information. The defined class inherits from
     the list of parent classes referenced in the config file
-
-    This code was originally posted to the Catalyst mailing list by Dagfinn
-    Ilmari Mannsåker as a patch in response to an idea by Castaway. I
-    thought it would be better as a plugin and have extended it to handle MI
 
 Configuration and Environment
     Specify a *Plugin::ConfigComponents* config option. Attributes are
@@ -64,7 +60,7 @@ Configuration and Environment
 
 Subroutines/Methods
   setup_components
-    Calls the setup method (which defaults to "_setup_config_components")
+    Calls the setup method (which defaults to "setup_config_components")
     after the parent method
 
   _setup_config_components
@@ -81,7 +77,7 @@ Diagnostics
     None
 
 Dependencies
-    Class::C3
+    Moose::Role
     Catalyst::Utils
     Devel::InnerPackage
 
@@ -94,6 +90,13 @@ Bugs and Limitations
 
 Author
     Peter Flanigan, "<Support at RoxSoft.co.uk>"
+
+Acknowledgements
+    Larry Wall - For the Perl programming language
+
+    This code was originally posted to the Catalyst mailing list by Dagfinn
+    Ilmari Mannsåker as a patch in response to an idea by Castaway. I
+    thought it would be better as a plugin and have extended it to handle MI
 
 License and Copyright
     Copyright (c) 2008-2009 Peter Flanigan. All rights reserved

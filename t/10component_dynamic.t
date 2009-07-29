@@ -1,8 +1,8 @@
-# @(#)$Id: 10component_dynamic.t 115 2009-06-29 17:00:47Z pjf $
+# @(#)$Id: 10component_dynamic.t 123 2009-07-18 22:12:30Z pjf $
 
 use strict;
 use warnings;
-use version; our $VERSION = qv( sprintf '0.4.%d', q$Rev: 115 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.5.%d', q$Rev: 123 $ =~ /\d+/gmx );
 use File::Spec::Functions;
 use FindBin  qw( $Bin );
 use lib (catdir( $Bin, q(lib) ), catdir( $Bin, updir, q(lib) ));

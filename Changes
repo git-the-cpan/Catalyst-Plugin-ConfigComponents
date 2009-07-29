@@ -1,5 +1,15 @@
 Revision history for Catalyst::Plugin::ConfigComponents
 
+0.5.123  2009-07-18
+         - Switched to using Moose::Role
+
+0.4.121  2009-07-13
+         - Made private methods anon. coderef to not pollute namespace
+
+0.4.120  2009-07-12
+         - Use MRO::Compat not Class::C3
+         - Change _load_component to _load_config_component to be more unique
+
 0.4.115  29/06/2009
          - Distro signed with new key
 
