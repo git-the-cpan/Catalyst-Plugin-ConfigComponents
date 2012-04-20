@@ -1,11 +1,11 @@
-# @(#)$Id: ConfigComponents.pm 125 2009-07-19 12:47:40Z pjf $
+# @(#)$Id: ConfigComponents.pm 128 2012-04-19 23:21:40Z pjf $
 
 package Catalyst::Plugin::ConfigComponents;
 
 use strict;
 use warnings;
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.5.%d', q$Rev: 125 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.6.%d', q$Rev: 128 $ =~ /\d+/gmx );
 
 use Moose::Role;
 use Catalyst::Utils;
@@ -36,18 +36,16 @@ sub _setup_config_components {
    my @comps  = grep { m{ \A (?:$prefix) :: }mx } keys %{ $self->config };
 
    for my $suffix (sort { length $a <=> length $b } @comps) {
-      my $component = "$class\::$suffix";
+      my $component = "${class}::${suffix}";
 
-      next if ($self->components->{ $component });
+      $self->components->{ $component } and next;
 
       my $config = $self->config->{ $suffix };
       my $active = delete $config->{component_active};
 
-      next if (defined $active and not $active);
+      defined $active and not $active and next;
 
-      my $parents = delete $config->{parent_classes}
-                 || delete $config->{base_class} # Deprecated
-                 || "Catalyst::$suffix";
+      my $parents = delete $config->{parent_classes} || "Catalyst::${suffix}";
 
       $self->_load_config_component( $component, $parents );
 
@@ -67,25 +65,25 @@ sub _setup_config_components {
 sub _load_config_component {
    my ($self, $child, $parents) = @_;
 
-   $parents = [ $parents ] unless (ref $parents eq q(ARRAY));
+   ref $parents eq q(ARRAY) or $parents = [ $parents ];
 
    for my $parent (reverse @{ $parents }) {
       Catalyst::Utils::ensure_class_loaded( $parent );
       ## no critic
       {  no strict q(refs);
-         unless ($child eq $parent or $child->isa( $parent )) {
-            unshift @{ "$child\::ISA" }, $parent;
-         }
+         ($child eq $parent or $child->isa( $parent ))
+            or unshift @{ "${child}::ISA" }, $parent;
       }
       ## critic
    }
 
-   unless (exists $Class::C3::MRO{ $child }) {
-      eval "package $child; import Class::C3;"; ## no critic
-   }
+   exists $Class::C3::MRO{ $child }
+      or eval "package ${child}; import Class::C3;"; ## no critic
 
    return;
 }
+
+no Moose::Role;
 
 1;
 
@@ -99,7 +97,7 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
 
 =head1 Version
 
-0.5.$Revision: 125 $
+0.6.$Revision: 128 $
 
 =head1 Synopsis
 
@@ -109,8 +107,6 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
    use Catalyst qw(ConfigComponents);
 
    __PACKAGE__->setup;
-
-   Class::C3::initialize();
 
    # In your applications config file
    <component name="Model::YourModel">
@@ -226,7 +222,7 @@ it to handle MI
 
 =head1 License and Copyright
 
-Copyright (c) 2008-2009 Peter Flanigan. All rights reserved
+Copyright (c) 2008-2012 Peter Flanigan. All rights reserved
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself. See L<perlartistic>

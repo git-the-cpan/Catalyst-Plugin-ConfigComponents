@@ -1,22 +1,20 @@
-# @(#)$Id: 10component_dynamic.t 123 2009-07-18 22:12:30Z pjf $
+# @(#)$Id: 10component_dynamic.t 128 2012-04-19 23:21:40Z pjf $
 
 use strict;
 use warnings;
-use version; our $VERSION = qv( sprintf '0.5.%d', q$Rev: 123 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.6.%d', q$Rev: 128 $ =~ /\d+/gmx );
 use File::Spec::Functions;
 use FindBin  qw( $Bin );
 use lib (catdir( $Bin, q(lib) ), catdir( $Bin, updir, q(lib) ));
 
-use English  qw(-no_match_vars);
+use Module::Build;
 use Test::More;
 
 BEGIN {
-   if ($ENV{AUTOMATED_TESTING}  || $ENV{PERL_CR_SMOKER_CURRENT} ||
-       $ENV{PERL5_MINISMOKEBOX} || $ENV{PERL5_YACSMOKE_BASE}) {
-      plan skip_all => q(CPAN Testing stopped);
-   }
+   my $current = eval { Module::Build->current };
 
-   plan tests => 27;
+   $current and $current->notes->{stop_tests}
+            and plan skip_all => $current->notes->{stop_tests};
 }
 
 {
@@ -46,6 +44,8 @@ for my $comp (qw/Model View Controller/) {
       isa_ok( MyApp->$method( "$type\::Sub" ), "Catalyst::$comp" );
    }
 }
+
+done_testing;
 
 # Local Variables:
 # mode: perl

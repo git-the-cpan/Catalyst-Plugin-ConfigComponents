@@ -1,7 +1,13 @@
 Revision history for Catalyst::Plugin::ConfigComponents
 
-0.5.123  2009-07-18
+0.6.127  2012-04-19
+         - Turned CPAN testin on
+         - Removed deprecated config key, base_class
+         - Updated to inc::Bob 1.3
+
+0.5.125  2009-07-29
          - Switched to using Moose::Role
+         - Dropped the anon. coderef nonsense
 
 0.4.121  2009-07-13
          - Made private methods anon. coderef to not pollute namespace

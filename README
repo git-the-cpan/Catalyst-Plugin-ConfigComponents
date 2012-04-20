@@ -3,7 +3,7 @@ Name
     entries
 
 Version
-    0.5.$Revision: 125 $
+    0.6.$Revision: 128 $
 
 Synopsis
        # In your Catalyst application
@@ -12,8 +12,6 @@ Synopsis
        use Catalyst qw(ConfigComponents);
 
        __PACKAGE__->setup;
-
-       Class::C3::initialize();
 
        # In your applications config file
        <component name="Model::YourModel">
@@ -99,7 +97,7 @@ Acknowledgements
     thought it would be better as a plugin and have extended it to handle MI
 
 License and Copyright
-    Copyright (c) 2008-2009 Peter Flanigan. All rights reserved
+    Copyright (c) 2008-2012 Peter Flanigan. All rights reserved
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself. See perlartistic

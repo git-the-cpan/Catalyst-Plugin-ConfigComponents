@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.55.
+signed via the Module::Signature module, version 0.66.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -14,18 +14,21 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 3864831c777a4fe9c73c443aae332263f8217058 Changes
-SHA1 0190f62d6871f7927dcc90e40797c0f20645ddea LICENSE
-SHA1 8f22caf6c69dd2ebbfb7124a45069dde0d52a79c MANIFEST
-SHA1 d71318738c72e14915e93206ba6cf2b9a86f98b0 META.yml
-SHA1 851964ce0d934066a07fe2cbf4362e159359c1c5 Makefile.PL
-SHA1 b5f265942d2428a16eca9b4449fbdea63cb9e831 README
-SHA1 0c760b49a9055b6a3b7675bbe9dea697f64f441b lib/Catalyst/Plugin/ConfigComponents.pm
+SHA1 a97123ddca9d97e7e0ff433450038fefc5360d33 Build.PL
+SHA1 65583cea2408a3e1e09ad93b3017bb4320bb0b46 Changes
+SHA1 49235938de66faaecd273d4320f50fdbd5274beb LICENSE
+SHA1 fec984766caf09f7491c0239c603f40c94016fcd MANIFEST
+SHA1 3fbe63cd4513dec88aba769c84600d632edae74f META.json
+SHA1 91af4b9d58871bf5e5fcd9f72fdefb8408d64247 META.yml
+SHA1 76d24a9eb46a6ec1eae43b95d268273369c20dc5 README
+SHA1 3b238894c0e00569dde9a850edfcced77173a14b inc/Bob.pm
+SHA1 345320150f499de0cb35bd7b9a1cf506c7998670 inc/CPANTesting.pm
+SHA1 e53dcb8cb0ce7e95bdec60fac1656a2affa3d1b6 lib/Catalyst/Plugin/ConfigComponents.pm
 SHA1 f5de56b1c4a2de9101789c1cb8407de738628c4a t/01always_pass.t
-SHA1 3bb2db1be2cd04bdf0a2a7039efd5c8ce4c3926b t/02pod.t
-SHA1 5af40f936441effc53c5dac8a145205bf8f1c369 t/03podcoverage.t
-SHA1 da90bc4be5663df8fbc9c94e0b5f0693ab3b21cd t/10component_dynamic.t
-SHA1 47a300d26c3805e6a553afd6cd6f6fd0395cb55b t/lib/Catalyst/Component/Implicit.pm
+SHA1 330e19110239efccb0b59cf31fffe508831df225 t/02pod.t
+SHA1 43b5053a97865e61809cc8554ab167131f8a0384 t/03podcoverage.t
+SHA1 19b4143c88692480c64216207f6d9f9605daff40 t/10component_dynamic.t
+SHA1 4e5888c4472abff858787c2d8e7d2887a3e28020 t/lib/Catalyst/Component/Implicit.pm
 SHA1 616e45248145b77d9a3a9901ba309ad6cf135c1c t/lib/Catalyst/Controller/Implicit.pm
 SHA1 91e2d8c593d6e333b17dd93f040901fb0e09c1cd t/lib/Catalyst/Model/Implicit.pm
 SHA1 2327831b42476beece974dab4553d7bc594020a6 t/lib/Catalyst/View/Implicit.pm
@@ -33,13 +36,13 @@ SHA1 6ee1d4c68870129a40b8780db5cf0e7a6604b72a t/lib/CatalystX/Controller.pm
 SHA1 8679468a0970fb6b4f1f9f4485dbcf65cc945237 t/lib/CatalystX/Model.pm
 SHA1 654a76d18ffd86e0480f475b1a65c44debfd515a t/lib/CatalystX/View.pm
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.6 (GNU/Linux)
+Version: GnuPG v1.4.10 (GNU/Linux)
 
-iQEcBAEBAgAGBQJKcHhKAAoJEK492j4Im1BppfoH/i/c4G5nyhjb/Up/oYuf3mey
-W6x5SGmy5aKUk3QHH2HFYWabhQK0juls2RCx0WbbkfN9dD0tn+OqiIEOpLXb00i+
-3itXAuvc+kweh60FDTL8XpEIMdG6mVIrxNVwWskbXNAwmD7TTGv2uA93+jDVQ9zf
-wPkcNwZFXNu7La124bXkfDXkESl8WYGFAclqIcfAdcxmCHITEUj622j8a/fvFXHS
-/bIEfk959pc3tinGEq3D7vgiJ/btII+0pmGZbg7ehvSyUFakSMBlv3EihoD1Hjgq
-DXNwXMKh0E6o9jg5wblcfgl9FytN5dIjFb9iwZqQYTORISJ1p/o1k2BFtKQzBTI=
-=sodp
+iQEcBAEBAgAGBQJPkZZIAAoJEK492j4Im1Bp6MoH/3wUNwi2pMnjRc/uHPTY7Zu4
+F53Zq91imUSrM64PtP88uNQ4XfShsrt5DGeBifYhMvyI9p9M17YtH6yHgl0KWMBn
+gbiThAHx2NB6idxWDWSty9Y9nf1ghXf064j5dPfVz7U2Os9Xgkthxb44nggReO9E
+FJJJQep1c4eABGbN48nIvwd6joZFdkUMxUEh5alhrN8MjkRL5iMJpNUVQmFP0ry5
+eAnsuC14DmDxbEIL8F3Voo4GEjRYeBe/HnShGAriYmb1QnmdSOzW5cY55JOnzHhe
+G7P1vwBGkgovN9MYgypLezjtHpJ4mC4QmeJyczV235neOI4MM7VS/76JFiLCoYE=
+=RYqI
 -----END PGP SIGNATURE-----

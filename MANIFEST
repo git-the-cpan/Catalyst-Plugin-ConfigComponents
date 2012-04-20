@@ -1,7 +1,13 @@
+Build.PL
 Changes
+inc/Bob.pm
+inc/CPANTesting.pm
 lib/Catalyst/Plugin/ConfigComponents.pm
 LICENSE
 MANIFEST			This list of files
+META.json
+META.yml
+README
 t/01always_pass.t
 t/02pod.t
 t/03podcoverage.t
@@ -13,7 +19,4 @@ t/lib/Catalyst/View/Implicit.pm
 t/lib/CatalystX/Controller.pm
 t/lib/CatalystX/Model.pm
 t/lib/CatalystX/View.pm
-Makefile.PL
-README
-META.yml
 SIGNATURE    Added here by Module::Build
