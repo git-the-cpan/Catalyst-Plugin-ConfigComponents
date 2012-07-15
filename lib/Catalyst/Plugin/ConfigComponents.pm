@@ -1,11 +1,11 @@
-# @(#)$Id: ConfigComponents.pm 128 2012-04-19 23:21:40Z pjf $
+# @(#)$Id: ConfigComponents.pm 130 2012-07-15 00:14:18Z pjf $
 
 package Catalyst::Plugin::ConfigComponents;
 
 use strict;
 use warnings;
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.6.%d', q$Rev: 128 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.6.%d', q$Rev: 130 $ =~ /\d+/gmx );
 
 use Moose::Role;
 use Catalyst::Utils;
@@ -97,7 +97,7 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
 
 =head1 Version
 
-0.6.$Revision: 128 $
+0.6.$Revision: 130 $
 
 =head1 Synopsis
 
@@ -237,3 +237,4 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
 # mode: perl
 # tab-width: 3
 # End:
+

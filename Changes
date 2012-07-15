@@ -1,5 +1,8 @@
 Revision history for Catalyst::Plugin::ConfigComponents
 
+0.6.130  2012-07-15
+         - Removed execute bit from Build.PL
+
 0.6.127  2012-04-19
          - Turned CPAN testin on
          - Removed deprecated config key, base_class

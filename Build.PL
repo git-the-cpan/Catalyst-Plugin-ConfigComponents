@@ -1,9 +1,9 @@
-# @(#)$Id: Build.PL 1182 2012-04-19 15:29:38Z pjf $
+# @(#)$Id: Build.PL 130 2012-07-15 00:14:18Z pjf $
 
 use strict;
 use warnings;
 use inc::Bob; # Module::Build subclass
-use version; our $VERSION = qv( sprintf '0.6.%d', q$Rev: 1182 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.6.%d', q$Rev: 130 $ =~ /\d+/gmx );
 
 Bob->new( {
    module     => q(Catalyst::Plugin::ConfigComponents),

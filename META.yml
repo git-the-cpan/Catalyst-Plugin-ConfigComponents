@@ -23,7 +23,7 @@ no_index:
 provides:
   Catalyst::Plugin::ConfigComponents:
     file: lib/Catalyst/Plugin/ConfigComponents.pm
-    version: v0.6.128
+    version: v0.6.130
 requires:
   Catalyst: 5.9001
   Devel::InnerPackage: 0.3
@@ -36,4 +36,4 @@ resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Catalyst-Plugin-ConfigComponents
   homepage: http://www.roxsoft.co.uk
   license: http://dev.perl.org/licenses/
-version: 0.6.128
+version: 0.6.130

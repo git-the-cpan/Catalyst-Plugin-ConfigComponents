@@ -48,7 +48,7 @@
    "provides" : {
       "Catalyst::Plugin::ConfigComponents" : {
          "file" : "lib/Catalyst/Plugin/ConfigComponents.pm",
-         "version" : "v0.6.128"
+         "version" : "v0.6.130"
       }
    },
    "release_status" : "stable",
@@ -61,5 +61,5 @@
          "http://dev.perl.org/licenses/"
       ]
    },
-   "version" : "0.6.128"
+   "version" : "0.6.130"
 }
