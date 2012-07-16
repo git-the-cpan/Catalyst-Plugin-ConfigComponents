@@ -1,5 +1,10 @@
 Revision history for Catalyst::Plugin::ConfigComponents
 
+0.6.133  2012-07-16
+         - Catalyst 5.9.13 merged C::C::ActionRole into C::C and started
+           producing warnings. Adding the _application attribute to the
+           config shuts the fucker up
+
 0.6.130  2012-07-15
          - Removed execute bit from Build.PL
 

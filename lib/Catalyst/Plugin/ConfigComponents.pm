@@ -1,11 +1,11 @@
-# @(#)$Id: ConfigComponents.pm 130 2012-07-15 00:14:18Z pjf $
+# @(#)$Id: ConfigComponents.pm 133 2012-07-16 02:16:20Z pjf $
 
 package Catalyst::Plugin::ConfigComponents;
 
 use strict;
 use warnings;
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.6.%d', q$Rev: 130 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.6.%d', q$Rev: 133 $ =~ /\d+/gmx );
 
 use Moose::Role;
 use Catalyst::Utils;
@@ -20,6 +20,19 @@ after 'setup_components' => sub {
    else {  $self->_setup_config_components( $config ) }
 
    return;
+};
+
+around 'setup_component' => sub {
+   my ($next, $self, $component) = @_; my $class = ref $self || $self;
+
+   my $suffix = Catalyst::Utils::class2classsuffix( $component );
+
+   # Catalyst 5.9.13 merged C::C::ActionRole into C::C and started
+   # producing warnings. Adding the _application attribute to the
+   # config shuts the fucker up
+   $class->config->{ $suffix }->{_application} ||= $class;
+
+   return $self->$next( $component );
 };
 
 # Private methods
@@ -97,7 +110,7 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
 
 =head1 Version
 
-0.6.$Revision: 130 $
+0.6.$Revision: 133 $
 
 =head1 Synopsis
 
