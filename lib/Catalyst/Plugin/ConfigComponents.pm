@@ -1,11 +1,11 @@
-# @(#)Ident: ConfigComponents.pm 2013-08-11 11:17 pjf ;
+# @(#)Ident: ConfigComponents.pm 2013-08-11 15:02 pjf ;
 
 package Catalyst::Plugin::ConfigComponents;
 
 use strict;
 use warnings;
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.7.%d', q$Rev: 1 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.7.%d', q$Rev: 2 $ =~ /\d+/gmx );
 
 use Moose::Role;
 use Catalyst::Utils;
@@ -132,7 +132,7 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
 
 =head1 Version
 
-This documents version v0.7.$Rev: 1 $ of L<Catalyst::Plugin::ConfigComponents>
+This documents version v0.7.$Rev: 2 $ of L<Catalyst::Plugin::ConfigComponents>
 
 =head1 Description
 

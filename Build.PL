@@ -8,7 +8,6 @@ use Module::Build 0.3601;
 my %module_build_args = (
   "build_requires" => {
     "Module::Build" => "0.4004",
-    "Test::More" => "0.74",
     "version" => "0.88"
   },
   "configure_requires" => {
@@ -20,7 +19,7 @@ my %module_build_args = (
     "Peter Flanigan <pjfl\@cpan.org>"
   ],
   "dist_name" => "Catalyst-Plugin-ConfigComponents",
-  "dist_version" => "0.7.1",
+  "dist_version" => "0.7.2",
   "license" => "perl",
   "module_name" => "Catalyst::Plugin::ConfigComponents",
   "recommends" => {},

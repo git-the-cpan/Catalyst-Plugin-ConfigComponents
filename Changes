@@ -1,6 +1,8 @@
 Revision history for Catalyst::Plugin::ConfigComponents
 
-0.7.1     2013-08-11 12:45:42
+0.7.2     2013-08-11 16:02:13
+          - Added MetaProvides::Package to dist.ini
+
 0.6.0     2013-08-11 11:50:09
           - Added code from SVN repository
           - Added project files to master branch

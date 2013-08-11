@@ -17,7 +17,6 @@
       "build" : {
          "requires" : {
             "Module::Build" : "0.4004",
-            "Test::More" : "0.74",
             "version" : "0.88"
          }
       },
@@ -41,7 +40,13 @@
          }
       }
    },
+   "provides" : {
+      "Catalyst::Plugin::ConfigComponents" : {
+         "file" : "lib/Catalyst/Plugin/ConfigComponents.pm",
+         "version" : "v0.7.2"
+      }
+   },
    "release_status" : "stable",
-   "version" : "0.7.1"
+   "version" : "0.7.2"
 }
 
