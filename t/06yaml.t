@@ -1,4 +1,4 @@
-# @(#)Ident: 03podcoverage.t 2013-04-22 22:44 pjf ;
+# @(#)Ident: 06yaml.t 2013-04-22 22:46 pjf ;
 
 use strict;
 use warnings;
@@ -11,15 +11,16 @@ use English qw(-no_match_vars);
 use Test::More;
 
 BEGIN {
-   $ENV{AUTHOR_TESTING}
-      or plan skip_all => 'POD coverage test only for developers';
+   $ENV{AUTHOR_TESTING} or plan skip_all => 'YAML test only for developers';
 }
 
-eval "use Test::Pod::Coverage 1.04";
+eval { require Test::YAML::Meta; };
 
-$EVAL_ERROR and plan skip_all => 'Test::Pod::Coverage 1.04 required';
+$EVAL_ERROR and plan skip_all => 'Test::YAML::Meta not installed';
 
-all_pod_coverage_ok();
+Test::YAML::Meta->import();
+
+meta_yaml_ok();
 
 # Local Variables:
 # mode: perl

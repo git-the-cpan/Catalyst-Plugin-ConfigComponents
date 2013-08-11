@@ -2,9 +2,6 @@ Name
     Catalyst::Plugin::ConfigComponents - Creates components from config
     entries
 
-Version
-    0.6.$Revision: 133 $
-
 Synopsis
        # In your Catalyst application
        package YourApp;
@@ -25,6 +22,10 @@ Synopsis
        # the class YourExternal::Model
        $result = $c->model( q(YourModel) )->your_method( ... );
 
+Version
+    This documents version v0.7.$Rev: 1 $ of
+    Catalyst::Plugin::ConfigComponents
+
 Description
     When the application starts this module creates Catalyst component class
     definitions using config information. The defined class inherits from
@@ -33,28 +34,21 @@ Description
 Configuration and Environment
     Specify a *Plugin::ConfigComponents* config option. Attributes are
 
-    *component_active*
-       If the *component_active* config attribute exists and is false the
+    "component_active"
+       If the "component_active" config attribute exists and is false the
        component will not be loaded
 
-    *parent_classes*
+    "parent_classes"
        List of classes for the derived component to inherit from
 
-    *search_extra*
+    "search_extra"
        To add additional search paths, specify a key named *search_extra* as
-       an array reference. Items in the array beginning with :: will have
+       an array reference. Items in the array beginning with "::" will have
        the application class name prepended to them
 
-    *setup_method*
+    "setup_method"
        Defaults to "_setup_config_components", the method to call after the
        call to Catalyst::setup_components
-
-    You may want to add the line:
-
-       Class::C3::initialize();
-
-    to your Catalyst application after the "__PACKAGE__->setup" call if the
-    base class creates any "diamond" patterns in the inheritance tree
 
 Subroutines/Methods
   setup_components
@@ -83,21 +77,22 @@ Incompatibilities
     There are no known incompatibilities in this module
 
 Bugs and Limitations
-    There are no known bugs in this module. Please report problems to the
-    address below. Patches are welcome
-
-Author
-    Peter Flanigan, "<Support at RoxSoft.co.uk>"
+    There are no known bugs in this module. Please report problems to
+    http://rt.cpan.org/NoAuth/Bugs.html?Dist=Catalyst-Plugin-ConfigComponent
+    s. Patches are welcome
 
 Acknowledgements
     Larry Wall - For the Perl programming language
 
     This code was originally posted to the Catalyst mailing list by Dagfinn
-    Ilmari Mannsåker as a patch in response to an idea by Castaway. I
+    Ilmari Mannsï¿½ker as a patch in response to an idea by Castaway. I
     thought it would be better as a plugin and have extended it to handle MI
 
+Author
+    Peter Flanigan, "<pjfl@cpan.org>"
+
 License and Copyright
-    Copyright (c) 2008-2012 Peter Flanigan. All rights reserved
+    Copyright (c) 2013 Peter Flanigan. All rights reserved
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself. See perlartistic

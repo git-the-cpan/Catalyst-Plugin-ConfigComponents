@@ -1,17 +1,19 @@
 Build.PL
 Changes
-inc/Bob.pm
-inc/CPANTesting.pm
-lib/Catalyst/Plugin/ConfigComponents.pm
 LICENSE
-MANIFEST			This list of files
+MANIFEST
 META.json
 META.yml
 README
+lib/Catalyst/Plugin/ConfigComponents.pm
 t/01always_pass.t
 t/02pod.t
 t/03podcoverage.t
-t/10component_dynamic.t
+t/04critic.t
+t/05kwalitee.t
+t/06yaml.t
+t/07podspelling.t
+t/10test_script.t
 t/lib/Catalyst/Component/Implicit.pm
 t/lib/Catalyst/Controller/Implicit.pm
 t/lib/Catalyst/Model/Implicit.pm
@@ -19,4 +21,3 @@ t/lib/Catalyst/View/Implicit.pm
 t/lib/CatalystX/Controller.pm
 t/lib/CatalystX/Model.pm
 t/lib/CatalystX/View.pm
-SIGNATURE    Added here by Module::Build

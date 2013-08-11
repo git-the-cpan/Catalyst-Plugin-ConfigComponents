@@ -1,26 +1,18 @@
-# @(#)$Id: 10component_dynamic.t 128 2012-04-19 23:21:40Z pjf $
+# @(#)Ident: 10test_script.t 2013-08-11 11:22 pjf ;
 
 use strict;
 use warnings;
-use version; our $VERSION = qv( sprintf '0.6.%d', q$Rev: 128 $ =~ /\d+/gmx );
-use File::Spec::Functions;
-use FindBin  qw( $Bin );
-use lib (catdir( $Bin, q(lib) ), catdir( $Bin, updir, q(lib) ));
+use version; our $VERSION = qv( sprintf '0.7.%d', q$Rev: 1 $ =~ /\d+/gmx );
+use File::Spec::Functions   qw( catdir updir );
+use FindBin                 qw( $Bin );
+use lib                 catdir( $Bin, 'lib' ), catdir( $Bin, updir, 'lib' );
 
-use Module::Build;
 use Test::More;
-
-BEGIN {
-   my $current = eval { Module::Build->current };
-
-   $current and $current->notes->{stop_tests}
-            and plan skip_all => $current->notes->{stop_tests};
-}
 
 {
    package MyApp;
 
-   use Catalyst qw(ConfigComponents);
+   use Catalyst qw( ConfigComponents );
 
    __PACKAGE__->config
       ( map { +"$_\::Explicit" => {

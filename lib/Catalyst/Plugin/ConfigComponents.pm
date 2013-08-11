@@ -1,17 +1,17 @@
-# @(#)$Id: ConfigComponents.pm 133 2012-07-16 02:16:20Z pjf $
+# @(#)Ident: ConfigComponents.pm 2013-08-11 11:17 pjf ;
 
 package Catalyst::Plugin::ConfigComponents;
 
 use strict;
 use warnings;
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.6.%d', q$Rev: 133 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.7.%d', q$Rev: 1 $ =~ /\d+/gmx );
 
 use Moose::Role;
 use Catalyst::Utils;
 use Devel::InnerPackage ();
 
-my $KEY = q(Plugin::ConfigComponents);
+my $KEY = 'Plugin::ConfigComponents';
 
 after 'setup_components' => sub {
    my $self = shift; my $config = $self->config->{ $KEY } || {}; my $method;
@@ -36,7 +36,6 @@ around 'setup_component' => sub {
 };
 
 # Private methods
-
 sub _setup_config_components {
    my ($self, $plugin_config) = @_;
 
@@ -104,13 +103,11 @@ __END__
 
 =pod
 
+=encoding utf8
+
 =head1 Name
 
 Catalyst::Plugin::ConfigComponents - Creates components from config entries
-
-=head1 Version
-
-0.6.$Revision: 133 $
 
 =head1 Synopsis
 
@@ -133,6 +130,10 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
    # the class YourExternal::Model
    $result = $c->model( q(YourModel) )->your_method( ... );
 
+=head1 Version
+
+This documents version v0.7.$Rev: 1 $ of L<Catalyst::Plugin::ConfigComponents>
+
 =head1 Description
 
 When the application starts this module creates Catalyst component
@@ -145,34 +146,27 @@ Specify a I<Plugin::ConfigComponents> config option. Attributes are
 
 =over 3
 
-=item I<component_active>
+=item C<component_active>
 
-If the I<component_active> config attribute exists and is false the
+If the C<component_active> config attribute exists and is false the
 component will not be loaded
 
-=item I<parent_classes>
+=item C<parent_classes>
 
 List of classes for the derived component to inherit from
 
-=item I<search_extra>
+=item C<search_extra>
 
 To add additional search paths, specify a key named I<search_extra>
-as an array reference. Items in the array beginning with B<::> will
+as an array reference. Items in the array beginning with C<::> will
 have the application class name prepended to them
 
-=item I<setup_method>
+=item C<setup_method>
 
 Defaults to C<_setup_config_components>, the method to call after the
 call to L<Catalyst::setup_components|Catalyst/setup_components>
 
 =back
-
-You may want to add the line:
-
-   Class::C3::initialize();
-
-to your Catalyst application after the C<< __PACKAGE__->setup >> call if
-the base class creates any "diamond" patterns in the inheritance tree
 
 =head1 Subroutines/Methods
 
@@ -216,13 +210,9 @@ There are no known incompatibilities in this module
 
 =head1 Bugs and Limitations
 
-There are no known bugs in this module.
-Please report problems to the address below.
+There are no known bugs in this module. Please report problems to
+http://rt.cpan.org/NoAuth/Bugs.html?Dist=Catalyst-Plugin-ConfigComponents.
 Patches are welcome
-
-=head1 Author
-
-Peter Flanigan,  C<< <Support at RoxSoft.co.uk> >>
 
 =head1 Acknowledgements
 
@@ -233,9 +223,13 @@ Dagfinn Ilmari Mannsåker as a patch in response to an idea by
 Castaway. I thought it would be better as a plugin and have extended
 it to handle MI
 
+=head1 Author
+
+Peter Flanigan, C<< <pjfl@cpan.org> >>
+
 =head1 License and Copyright
 
-Copyright (c) 2008-2012 Peter Flanigan. All rights reserved
+Copyright (c) 2013 Peter Flanigan. All rights reserved
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself. See L<perlartistic>
@@ -250,4 +244,3 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
 # mode: perl
 # tab-width: 3
 # End:
-

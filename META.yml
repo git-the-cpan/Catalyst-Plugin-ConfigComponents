@@ -1,39 +1,29 @@
 ---
-abstract: 'Creates components from config entries'
+abstract: 'Creates Catalyst components from config entries'
 author:
-  - 'Peter Flanigan,  C<< <Support at RoxSoft.co.uk> >>'
+  - 'Peter Flanigan <pjfl@cpan.org>'
 build_requires:
+  Module::Build: 0.4004
   Test::More: 0.74
+  version: 0.88
 configure_requires:
-  MRO::Compat: 0.11
-  Module::Build: 0.38
-  version: 0.74
-dynamic_config: 1
-generated_by: 'Module::Build version 0.38, CPAN::Meta::Converter version 2.112621'
+  Module::Build: 0.4004
+  version: 0.88
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.300033, CPAN::Meta::Converter version 2.120921'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Catalyst-Plugin-ConfigComponents
-no_index:
-  directory:
-    - examples
-    - inc
-    - t
-provides:
-  Catalyst::Plugin::ConfigComponents:
-    file: lib/Catalyst/Plugin/ConfigComponents.pm
-    version: v0.6.133
 requires:
-  Catalyst: 5.9001
+  Catalyst: 5.90010
   Devel::InnerPackage: 0.3
+  MRO::Compat: 0.11
+  Module::Pluggable: 4.8
   Moose: 2.0402
   Path::Class: 0.16
   namespace::autoclean: 0.05
-  perl: 5.01
-  version: 0.74
-resources:
-  bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Catalyst-Plugin-ConfigComponents
-  homepage: http://www.roxsoft.co.uk
-  license: http://dev.perl.org/licenses/
-version: 0.6.133
+  parent: 0.224
+  version: 0.88
+version: 0.7.1
