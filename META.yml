@@ -8,17 +8,23 @@ build_requires:
 configure_requires:
   Module::Build: 0.4004
   version: 0.88
-dynamic_config: 0
+dynamic_config: 1
 generated_by: 'Dist::Zilla version 4.300033, CPAN::Meta::Converter version 2.120921'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Catalyst-Plugin-ConfigComponents
+no_index:
+  directory:
+    - examples
+    - inc
+    - share
+    - t
 provides:
   Catalyst::Plugin::ConfigComponents:
     file: lib/Catalyst/Plugin/ConfigComponents.pm
-    version: v0.7.2
+    version: v0.8.1
 requires:
   Catalyst: 5.90010
   Devel::InnerPackage: 0.3
@@ -28,5 +34,10 @@ requires:
   Path::Class: 0.16
   namespace::autoclean: 0.05
   parent: 0.224
+  perl: 5.008
   version: 0.88
-version: 0.7.2
+resources:
+  bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Catalyst-Plugin-ConfigComponents
+  homepage: https://metacpan.org/author/PJFL
+  license: http://dev.perl.org/licenses/
+version: 0.8.1

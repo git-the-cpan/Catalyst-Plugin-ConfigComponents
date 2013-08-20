@@ -3,7 +3,7 @@
    "author" : [
       "Peter Flanigan <pjfl@cpan.org>"
    ],
-   "dynamic_config" : 0,
+   "dynamic_config" : "1",
    "generated_by" : "Dist::Zilla version 4.300033, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "perl_5"
@@ -13,6 +13,14 @@
       "version" : "2"
    },
    "name" : "Catalyst-Plugin-ConfigComponents",
+   "no_index" : {
+      "directory" : [
+         "examples",
+         "inc",
+         "share",
+         "t"
+      ]
+   },
    "prereqs" : {
       "build" : {
          "requires" : {
@@ -36,6 +44,7 @@
             "Path::Class" : "0.16",
             "namespace::autoclean" : "0.05",
             "parent" : "0.224",
+            "perl" : "5.008",
             "version" : "0.88"
          }
       }
@@ -43,10 +52,20 @@
    "provides" : {
       "Catalyst::Plugin::ConfigComponents" : {
          "file" : "lib/Catalyst/Plugin/ConfigComponents.pm",
-         "version" : "v0.7.2"
+         "version" : "v0.8.1"
       }
    },
    "release_status" : "stable",
-   "version" : "0.7.2"
+   "resources" : {
+      "bugtracker" : {
+         "mailto" : "bug-Catalyst-Plugin-ConfigComponents@rt.cpan.org",
+         "web" : "http://rt.cpan.org/NoAuth/Bugs.html?Dist=Catalyst-Plugin-ConfigComponents"
+      },
+      "homepage" : "https://metacpan.org/author/PJFL",
+      "license" : [
+         "http://dev.perl.org/licenses/"
+      ]
+   },
+   "version" : "0.8.1"
 }
 

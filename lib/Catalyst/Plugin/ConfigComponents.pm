@@ -1,15 +1,16 @@
-# @(#)Ident: ConfigComponents.pm 2013-08-11 15:02 pjf ;
+# @(#)Ident: ConfigComponents.pm 2013-08-15 13:15 pjf ;
 
 package Catalyst::Plugin::ConfigComponents;
 
 use strict;
 use warnings;
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.7.%d', q$Rev: 2 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.8.%d', q$Rev: 1 $ =~ /\d+/gmx );
 
-use Moose::Role;
 use Catalyst::Utils;
 use Devel::InnerPackage ();
+use Moose::Role;
+use Scalar::Util      qw( blessed );
 
 my $KEY = 'Plugin::ConfigComponents';
 
@@ -23,7 +24,7 @@ after 'setup_components' => sub {
 };
 
 around 'setup_component' => sub {
-   my ($next, $self, $component) = @_; my $class = ref $self || $self;
+   my ($next, $self, $component) = @_; my $class = blessed $self || $self;
 
    my $suffix = Catalyst::Utils::class2classsuffix( $component );
 
@@ -39,12 +40,12 @@ around 'setup_component' => sub {
 sub _setup_config_components {
    my ($self, $plugin_config) = @_;
 
-   my $class  = ref $self || $self;
-   my @paths  = qw(::Controller ::Model ::View);
+   my $class  = blessed $self || $self;
+   my @paths  = qw( ::Controller ::Model ::View );
 
    push @paths, @{ $plugin_config->{ search_extra } || [] };
 
-   my $prefix = join q(|), map { m{ :: (.*) \z }mx } @paths;
+   my $prefix = join '|', map { m{ :: (.*) \z }mx } @paths;
    my @comps  = grep { m{ \A (?:$prefix) :: }mx } keys %{ $self->config };
 
    for my $suffix (sort { length $a <=> length $b } @comps) {
@@ -77,12 +78,12 @@ sub _setup_config_components {
 sub _load_config_component {
    my ($self, $child, $parents) = @_;
 
-   ref $parents eq q(ARRAY) or $parents = [ $parents ];
+   ref $parents eq 'ARRAY' or $parents = [ $parents ];
 
    for my $parent (reverse @{ $parents }) {
       Catalyst::Utils::ensure_class_loaded( $parent );
       ## no critic
-      {  no strict q(refs);
+      {  no strict 'refs';
          ($child eq $parent or $child->isa( $parent ))
             or unshift @{ "${child}::ISA" }, $parent;
       }
@@ -132,7 +133,7 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
 
 =head1 Version
 
-This documents version v0.7.$Rev: 2 $ of L<Catalyst::Plugin::ConfigComponents>
+This documents version v0.8.$Rev: 1 $ of L<Catalyst::Plugin::ConfigComponents>
 
 =head1 Description
 
@@ -244,3 +245,4 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
 # mode: perl
 # tab-width: 3
 # End:
+# vim: expandtab shiftwidth=3:

@@ -1,4 +1,4 @@
-# @(#)Ident: 01always_pass.t 2013-08-11 11:24 pjf ;
+# @(#)Ident: 01always_pass.t 2013-08-13 15:07 pjf ;
 
 use strict;
 use warnings;
@@ -43,12 +43,14 @@ exit 0;
 # mode: perl
 # tab-width: 3
 # End:
+# vim: expandtab shiftwidth=3:
 
 __END__
 # Required:
 
 perl
 version
+Module::Build
 
 # Optional:
 
@@ -56,10 +58,11 @@ App::cpanminus
 
 # Environment:
 
-$AUTOMATED_TESTING
-$NONINTERACTIVE_TESTING
-$EXTENDED_TESTING
 $AUTHOR_TESTING
+$AUTOMATED_TESTING
+$EXTENDED_TESTING
+$NONINTERACTIVE_TESTING
+$PERL_CR_SMOKER_CURRENT
+$PERL5_CPANPLUS_IS_VERSION
 $TEST_CRITIC
 $TEST_SPELLING
-$PERL5_CPANPLUS_IS_VERSION

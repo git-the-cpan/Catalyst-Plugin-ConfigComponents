@@ -5,6 +5,7 @@ MANIFEST
 META.json
 META.yml
 README
+SIGNATURE
 lib/Catalyst/Plugin/ConfigComponents.pm
 t/01always_pass.t
 t/02pod.t

@@ -1,0 +1,50 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.66.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It will check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 f979b014e239c18cb2bbb0daf85da58c03264d97 Build.PL
+SHA1 a7d5a685fbfe7b561066898f7782631942fbfacd Changes
+SHA1 8835c6f04f0b79a12fb91025ee72f89d949d1d54 LICENSE
+SHA1 c418788a5f2f92f7067d6dd75e08bea6c7c31cfa MANIFEST
+SHA1 ebf98eb2bd0788a04ffe02477f2b6dd0f063173f META.json
+SHA1 4ff3bbcfc2e32fc2b8c9cb72e964eb8728ecf722 META.yml
+SHA1 20bf180df77f5a5431dcdad11a4987978fb95506 README
+SHA1 3238e19dcc667f3c7ca84aa620b49802a46288db lib/Catalyst/Plugin/ConfigComponents.pm
+SHA1 14a470457e68fca75b219146835e3a7521a5dc74 t/01always_pass.t
+SHA1 5bd00eb03f1d739bb1e94faf081c5c03fb119973 t/02pod.t
+SHA1 3b0b8c839082ac9e966ff051af801856f400159b t/03podcoverage.t
+SHA1 1f01c1d05ea19986e962e9f81ba58aa82c16bcc6 t/04critic.t
+SHA1 5552c8372ae679b7906eaa97658820beb32dc81d t/05kwalitee.t
+SHA1 3e18c2b072413fd1106a6af62056cedfe16b1307 t/06yaml.t
+SHA1 8da9443e015ff57582742369df5b2f00a4ace9c6 t/07podspelling.t
+SHA1 1f8d4f0a3b7cb60728a4aa194fa174698090ba1d t/10test_script.t
+SHA1 4e5888c4472abff858787c2d8e7d2887a3e28020 t/lib/Catalyst/Component/Implicit.pm
+SHA1 616e45248145b77d9a3a9901ba309ad6cf135c1c t/lib/Catalyst/Controller/Implicit.pm
+SHA1 91e2d8c593d6e333b17dd93f040901fb0e09c1cd t/lib/Catalyst/Model/Implicit.pm
+SHA1 2327831b42476beece974dab4553d7bc594020a6 t/lib/Catalyst/View/Implicit.pm
+SHA1 6ee1d4c68870129a40b8780db5cf0e7a6604b72a t/lib/CatalystX/Controller.pm
+SHA1 8679468a0970fb6b4f1f9f4485dbcf65cc945237 t/lib/CatalystX/Model.pm
+SHA1 654a76d18ffd86e0480f475b1a65c44debfd515a t/lib/CatalystX/View.pm
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJSE/TsAAoJEK492j4Im1BpMTEIAKG5kh1PQM7pSLYdpfPlUW/4
+8wkFUZyxHVSctR6wj/ll4dlKDjl7T4lARbaXxb6WIqORjQKYX6Daq7H+tYXwlk8u
+fXs+d9ObJZrfRhRXz3Lc/1AHbN7PZEFZvTi+vGxmDYonPLr8mWaIDaHNqMXTgXuD
+h0AXHFt5f6FRqstlHfCq72Sl/mgHeA2nTUSa2EH9cWFqytyhKdwVLSHUTy3ysKyd
+xLnCvsPGm+C9mI0gcuc1EG4ZnLps9DhsHwlX2RN3dzrlyI/LF4FyMvSIYMRfPybl
+TuklV7ay+hzSZLoG1WxcTDX4LTDCnHtP81rbod9vQucRaXyjEdyOHV7w8KhKuX0=
+=3yRW
+-----END PGP SIGNATURE-----

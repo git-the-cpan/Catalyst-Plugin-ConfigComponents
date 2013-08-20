@@ -1,58 +1,48 @@
+# @(#)$Ident: DZ_Build.PL 2013-08-15 13:04 pjf ;
 
 use strict;
 use warnings;
 
-use Module::Build 0.3601;
+use Module::Build;
 
+sub whimper { print {*STDOUT} $_[ 0 ]."\n"; exit 0 }
 
-my %module_build_args = (
-  "build_requires" => {
-    "Module::Build" => "0.4004",
-    "version" => "0.88"
+my $perl_ver = 5.008;
+my $name     = 'Catalyst-Plugin-ConfigComponents'; $name =~ s{ - }{::}gmx;
+
+$] >= $perl_ver or $ENV{PERL5_CPANPLUS_IS_VERSION}
+   or whimper "Minimum required Perl version is ${perl_ver}";
+
+Module::Build->subclass( code => do { local $/; <DATA> } )->new(
+  'module_name' => $name,
+  'notes'       => { min_perl_version => $perl_ver },
+  'build_requires' => {
+    'Module::Build' => '0.4004',
+    'version' => '0.88'
   },
-  "configure_requires" => {
-    "Module::Build" => "0.4004",
-    "version" => "0.88"
+  'configure_requires' => {
+    'Module::Build' => '0.4004',
+    'version' => '0.88'
   },
-  "dist_abstract" => "Creates Catalyst components from config entries",
-  "dist_author" => [
-    "Peter Flanigan <pjfl\@cpan.org>"
-  ],
-  "dist_name" => "Catalyst-Plugin-ConfigComponents",
-  "dist_version" => "0.7.2",
-  "license" => "perl",
-  "module_name" => "Catalyst::Plugin::ConfigComponents",
-  "recommends" => {},
-  "recursive_test_files" => 1,
-  "requires" => {
-    "Catalyst" => "5.90010",
-    "Devel::InnerPackage" => "0.3",
-    "MRO::Compat" => "0.11",
-    "Module::Pluggable" => "4.8",
-    "Moose" => "2.0402",
-    "Path::Class" => "0.16",
-    "namespace::autoclean" => "0.05",
-    "parent" => "0.224",
-    "version" => "0.88"
+  'requires' => {
+    'Catalyst' => '5.90010',
+    'Devel::InnerPackage' => '0.3',
+    'MRO::Compat' => '0.11',
+    'Module::Pluggable' => '4.8',
+    'Moose' => '2.0402',
+    'Path::Class' => '0.16',
+    'namespace::autoclean' => '0.05',
+    'parent' => '0.224',
+    'perl' => '5.008',
+    'version' => '0.88'
   },
-  "script_files" => [],
-  "test_requires" => {}
-);
 
+)->create_build_script;
 
-unless ( eval { Module::Build->VERSION(0.4004) } ) {
-  my $tr = delete $module_build_args{test_requires};
-  my $br = $module_build_args{build_requires};
-  for my $mod ( keys %$tr ) {
-    if ( exists $br->{$mod} ) {
-      $br->{$mod} = $tr->{$mod} if $tr->{$mod} > $br->{$mod};
-    }
-    else {
-      $br->{$mod} = $tr->{$mod};
-    }
-  }
+exit 0;
+
+__DATA__
+
+sub _normalize_prereqs { # Dynamic config
+   my $self = shift; my $p = $self->SUPER::_normalize_prereqs; return $p;
 }
-
-my $build = Module::Build->new(%module_build_args);
-
-$build->create_build_script;
