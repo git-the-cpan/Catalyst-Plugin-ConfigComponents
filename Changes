@@ -1,5 +1,8 @@
 Revision history for Catalyst::Plugin::ConfigComponents
 
+0.9.1     2013-09-03 14:59:41
+          - Bumped version dependencies
+
 0.8.1     2013-08-20 23:35:24
           - Fixed meta data
 

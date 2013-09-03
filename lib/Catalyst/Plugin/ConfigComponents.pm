@@ -1,11 +1,12 @@
-# @(#)Ident: ConfigComponents.pm 2013-08-15 13:15 pjf ;
+# @(#)Ident: ConfigComponents.pm 2013-09-03 13:56 pjf ;
 
 package Catalyst::Plugin::ConfigComponents;
 
+use 5.008;
 use strict;
 use warnings;
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.8.%d', q$Rev: 1 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.9.%d', q$Rev: 1 $ =~ /\d+/gmx );
 
 use Catalyst::Utils;
 use Devel::InnerPackage ();
@@ -30,7 +31,7 @@ around 'setup_component' => sub {
 
    # Catalyst 5.9.13 merged C::C::ActionRole into C::C and started
    # producing warnings. Adding the _application attribute to the
-   # config shuts the fucker up
+   # config shuts it up
    $class->config->{ $suffix }->{_application} ||= $class;
 
    return $self->$next( $component );
@@ -96,8 +97,6 @@ sub _load_config_component {
    return;
 }
 
-no Moose::Role;
-
 1;
 
 __END__
@@ -133,7 +132,7 @@ Catalyst::Plugin::ConfigComponents - Creates components from config entries
 
 =head1 Version
 
-This documents version v0.8.$Rev: 1 $ of L<Catalyst::Plugin::ConfigComponents>
+This documents version v0.9.$Rev: 1 $ of L<Catalyst::Plugin::ConfigComponents>
 
 =head1 Description
 

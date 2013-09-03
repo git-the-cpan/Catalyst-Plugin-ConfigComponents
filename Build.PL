@@ -1,9 +1,9 @@
-# @(#)$Ident: DZ_Build.PL 2013-08-15 13:04 pjf ;
+# @(#)$Ident: DZ_Build.PL 2013-09-03 12:35 pjf ;
 
 use strict;
 use warnings;
 
-use Module::Build;
+use Module::Build 0.4004;
 
 sub whimper { print {*STDOUT} $_[ 0 ]."\n"; exit 0 }
 
@@ -29,9 +29,9 @@ Module::Build->subclass( code => do { local $/; <DATA> } )->new(
     'Devel::InnerPackage' => '0.3',
     'MRO::Compat' => '0.11',
     'Module::Pluggable' => '4.8',
-    'Moose' => '2.0402',
+    'Moose' => '2.0802',
     'Path::Class' => '0.16',
-    'namespace::autoclean' => '0.05',
+    'namespace::autoclean' => '0.13',
     'parent' => '0.224',
     'perl' => '5.008',
     'version' => '0.88'
